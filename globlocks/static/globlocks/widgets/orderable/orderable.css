@@ -1,0 +1,35 @@
+.orderable-input-widget {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+}
+.orderable-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+}
+.orderable {
+    width: var(--orderable-width, 100%);
+    margin: 0.5em;
+    border: 1px solid #ccc;
+    padding: 0.5em;
+    background-color: #fff;
+    border-radius: 0.25em;
+    box-shadow: 0 0 0.25em #ccc;
+    cursor: move;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.orderable.sortable-chosen {
+    border: 1px solid #000;
+    box-shadow: 0 0 0.25em #000;
+    cursor: move;
+}

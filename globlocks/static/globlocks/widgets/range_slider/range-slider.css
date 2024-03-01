@@ -1,0 +1,31 @@
+.range-slider-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.range-slider-input {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    height: 25px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+    margin-right: 15px;
+}
+.range-slider-input:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+}
+.range-slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: var(--w-color-surface-button-default); /* Green background */
+    cursor: pointer; /* Cursor on hover */
+}
+.range-slider-input:hover::-webkit-scrollbar-thumb {
+    background: var(--w-color-surface-button-hover); /* Green background */
+}

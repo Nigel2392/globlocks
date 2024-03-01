@@ -1,0 +1,23 @@
+{% load static cache %}
+<div class="icon-picker-input" id="{{ widget.id_for_label|default:widget.attrs.id }}__wrapper">
+    <input type="hidden" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+    <input class="icon-picker-input-display" id="{{ widget.id_for_label|default:widget.attrs.id }}__display" type="{{widget.type}}" name="{{ widget.name }}-display"{% if widget.value != None %} value="{{ widget.value.label|stringformat:'s' }}"{% endif %}>
+    <div class="icon-picker-select" id="{{ widget.id_for_label|default:widget.attrs.id }}__select">
+        <div class="icon-picker-list">
+            <div class="icon-picker-items">
+                {% cache 86400 icon_library_choices widget.icon_library %}
+                    {% for choice in widget.choices %}
+                        <div class="icon-picker-select-item" data-value="{{choice.value}}">
+                            <div class="icon-picker-select-item-icon">
+                                <img src="{% static choice.value %}" alt="{{choice.label}}" loading="lazy" width="16" height="16">
+                            </div>
+                            <div class="icon-picker-select-item-label">
+                                {{choice.label}}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endcache %}
+            </div>
+        </div>
+    </div>
+</div>

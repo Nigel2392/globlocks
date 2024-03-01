@@ -1,0 +1,7 @@
+include LICENSE
+include README.md
+recursive-include globlocks/static *
+recursive-include globlocks/templates *
+recursive-include globlocks/locale *
+recursive-include globlocks/migrations *
+recursive-include globlocks/templatetags *

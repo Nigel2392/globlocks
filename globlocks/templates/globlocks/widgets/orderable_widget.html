@@ -1,0 +1,18 @@
+<div class="orderable-input-widget">
+    {% if widget.label %}
+        <label for="{{widget.attrs.id}}"><strong>{{widget.label}}:</strong></label>
+    {% endif %}
+
+    <input type="hidden" id="{{widget.attrs.id}}-input" name="{{widget.name}}" />
+    <div id="{{widget.attrs.id}}" class="orderable-container" style="--orderable-width:{% widthratio 100 widget.items|length 1 %}%;">
+
+        {% for item in widget.items %}
+
+            <div class="orderable" data-value="{{ item.value }}" data-name="{{item.name}}">
+                {{ item.label }}
+            </div>
+
+        {% endfor %}
+
+    </div>
+</div>

@@ -1,0 +1,39 @@
+{% load static l10n %}
+<div class="font-picker-widget" style="font-size:115%;">
+    {% if widget.label %}
+        <label for="{{widget.attrs.id}}"><strong>{{widget.label}}:</strong></label>
+    {% endif %}
+
+    <div class="font-picker-row">
+        <div class="font-picker-col">
+            <input type="hidden" id="{{widget.attrs.id}}" name="{{widget.name}}" {% if widget.value != None %}value="{{widget.value}}"{%endif%}/>
+            <select id="{{widget.attrs.id}}-picker" name="{{widget.name}}-picker" class="font-picker-select">
+                {% for item in widget.fonts %}4
+                    <option value="{{item.path}}" {% if item.path == widget.abs_value.path %}selected{% endif %} data-fontfamily="{{item.name}}" data-import={% static item.path %}>{{item.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="font-picker-col">
+            <span class="font-picker-input-group">
+                <input 
+                    type="number" 
+                    id="{{widget.attrs.id}}-size" 
+                    name="{{widget.name}}-size" 
+                    value="{{widget.abs_value.size|unlocalize}}" 
+                    class="font-picker-size"
+                    min="{{widget.min|unlocalize}}"
+                    max="{{widget.max|unlocalize}}"
+                    step="{{widget.stepping|unlocalize}}"/>
+                <span class="font-picker-input-group-addon">{{widget.unit}}</span>
+            </span>
+        </div>
+    </div>
+
+    <p id="{{widget.attrs.id}}-preview-text" class="font-picker-preview-text" style="font-family: {{widget.value|safe}};">
+        {% if widget.preview_text %}
+            {{widget.preview_text}}
+        {% else %}
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+        {% endif %}
+    </p>
+</div>

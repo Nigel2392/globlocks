@@ -1,0 +1,23 @@
+{% load l10n %}
+<div class="range-slider-container">
+    <div>
+        {% if widget.label %}
+        <label for="{{widget.attrs.id}}"><strong>{{widget.label}}:</strong></label>
+        {% endif %}
+        <input 
+            type="range" 
+            class="range-slider-input range-slider-converted {{classname}}" 
+            id="{{widget.attrs.id}}" 
+            value="{{widget.value|unlocalize|default:0}}" 
+            name="{{widget.name}}" 
+            {%if widget.min%}min="{{widget.min}}"{%endif%}
+            {%if widget.max%}max="{{widget.max}}"{%endif%}
+            {%if widget.stepping%}step="{{widget.stepping|unlocalize}}"{%endif%}
+        />
+    </div>
+    <div>
+        <p class="range-slider-preview-text" id="{{widget.attrs.id}}-preview-text">
+            {{widget.value|unlocalize}}{{widget.unit}}
+        </p>
+    </div>
+</div>

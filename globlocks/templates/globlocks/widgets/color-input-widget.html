@@ -1,0 +1,4 @@
+<div class="color-input-widget">
+    <input type="text" id="{{ widget.attrs.id }}" name="{{ widget.name }}" {% if widget.value != None %}value="{{ widget.value }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+    <button type="button" class="button" name="{{ widget.attrs.id }}-color-btn" id="{{ widget.attrs.id }}-color-btn">Pick</button>
+</div>
