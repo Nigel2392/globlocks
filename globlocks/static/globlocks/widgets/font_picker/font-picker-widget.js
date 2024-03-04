@@ -7,9 +7,9 @@ class FontPickerWidget {
         this.previewText = document.querySelector(`#${querySelector}-preview-text`);
         this.sizeInput = document.querySelector(`#${querySelector}-size`);
         this.unit = unit;
-        this.setState(value);
         this.setup();
         this.listen();
+        this.setState(value);
     }
 
     setup() {
@@ -41,6 +41,12 @@ class FontPickerWidget {
     selectedOption() {
         let selectedIndex = this.select.selectedIndex;
         let selectedOption = this.select.options[selectedIndex];
+
+        if (selectedOption == null) {
+            selectedOption = this.select.options[0];
+            this.select.selectedIndex = 0;
+        }
+
         return selectedOption;
     }
 
@@ -48,10 +54,6 @@ class FontPickerWidget {
         if (selectedOption == null) {
             selectedOption = this.selectedOption();
         }
-        // if (selectedOption == null) {
-            // this.select.selectedIndex = 0;
-            // return;
-        // }
         this.previewText.style.fontFamily = selectedOption.dataset.fontfamily;
         this.select.style.fontFamily = selectedOption.dataset.fontfamily;
     }
