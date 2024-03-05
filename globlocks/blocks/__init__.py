@@ -11,3 +11,8 @@ from .bases import (
     BaseBlockConfiguration,
     BaseConfigurableBlock,
 )
+
+from .template import (
+    TemplateBlock,
+    TemplateBlockConfiguration,
+)
