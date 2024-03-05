@@ -1,6 +1,6 @@
 from wagtail import blocks
 from django.utils.translation import gettext_lazy as _
-from django.core.exceptions import ValidationError
+from django.forms import ValidationError
 
 from .bases import BaseBlockConfiguration, BaseBlock
 
@@ -13,8 +13,10 @@ class TemplateBlockConfiguration(BaseBlockConfiguration):
         if not local_blocks:
             local_blocks = ()
 
-        # We don't want to reveal any unnecessary information to the user.
-        template_choices = [(str(i), label) for i, (value, label) in enumerate(template_choices)]
+        if not template_choices:
+            raise ValueError("template_choices is required.")
+
+        template_choices = tuple(template_choices)
         local_blocks += (
             (
                 "custom_template",
@@ -42,40 +44,53 @@ class TemplateBlock(BaseBlock):
 
     def advanced_settings_kwargs(self, **kwargs):
         kwargs = super().advanced_settings_kwargs(**kwargs)
-        kwargs["template_choices"] = (
-            *self.templates,
-        )
+        kwargs["template_choices"] = self.templates_choices
         return kwargs
+    
+    def __init__(self, local_blocks=None, **kwargs):
+        self.templates_dict = {}
+        self.templates_choices = []
+
+        # We don't want to reveal any unnecessary information to the user.
+        # We will define a dictionary of user-friendly values to use in the
+        # advanced settings form.
+        for i, data in enumerate(self.templates):
+            if len(data) == 2:
+                key, (template, label) = i, data
+            elif len(data) == 3:
+                key, template, label = data
+            else:
+                raise ValueError("Invalid `templates` attribute.")
+            
+            self.templates_choices.append((str(key), label))
+            self.templates_dict[str(key)] = template
+        
+        super().__init__(local_blocks, **kwargs)
     
     def clean(self, value):
         value = super().clean(value)
         settings = value["settings"]
         if "custom_template" in settings:
             template_choice = settings["custom_template"]
-            try: 
-                template_choice = int(template_choice)
-            except ValueError:
-                raise ValidationError(_("Invalid template choice (Not an integer)."))
-            
+
             try:
-                _ = self.templates[template_choice]
-            except IndexError:
-                raise ValidationError(_("Invalid template choice (Out of bounds)."))
+                _ = self.templates_dict[str(template_choice)]
+            except KeyError:
+                raise ValidationError(
+                    message=_("Invalid template choice (KeyError)."),
+                )
             
         return value
 
     def get_template(self, value=None, context=None):
         settings = value["settings"]
+
         if "custom_template" in settings:
             template_choice = settings["custom_template"]
+
             try: 
-                template_choice = int(template_choice)
-            except ValueError:
-                return super().get_template(value=value, context=context)
-            
-            try: 
-                template = self.templates[template_choice][0]
-            except IndexError:
+                template = self.templates_dict[str(template_choice)]
+            except KeyError:
                 return super().get_template(value=value, context=context)
 
             if template:

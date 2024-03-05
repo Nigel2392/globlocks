@@ -17,6 +17,18 @@
   width: 100%;
 }
 
+.border-danger {
+  border: 5px solid var(--w-color-critical-200);
+}
+
+.border-warning {
+  border: 5px solid var(--w-color-warning-100);
+}
+.border-danger,
+.border-warning {
+  border-radius: 5px;
+  padding: 0.5em;
+}
 /* .goodadvice-collapsible:not(.full) .goodadvice-collapsible-target > *:not(:has(.goodadvice-collapsible)) { */
   /*  */
 /* } */
