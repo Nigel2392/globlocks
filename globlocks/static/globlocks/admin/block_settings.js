@@ -10,4 +10,17 @@ $(document).ready(function(){
             $(this).parent().find('> .goodadvice-collapsible-target').show('fast');
         }
     });
+    $(document).on('click', '.goodadvice-collapsible-close', function(){
+
+        const parent = $(this).closest('.goodadvice-collapsible');
+
+        if (!parent.hasClass('collapsed')) {
+            parent.addClass('collapsed');
+            parent.find(".goodadvice-collapsible").addClass('collapsed');
+            parent.find('.goodadvice-collapsible-target').hide('fast');
+        } else {
+            parent.removeClass('collapsed');
+            parent.find('> .goodadvice-collapsible-target').show('fast');
+        }
+    });
 });

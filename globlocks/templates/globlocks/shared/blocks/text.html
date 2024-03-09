@@ -1,0 +1,10 @@
+{% load wagtailcore_tags %}
+<div class="globlocks-block globlocks-text">
+    <div {{ attributes }}>
+        {% if safe %}
+            {{ text }}
+        {% else %}
+            {{ text|safe }}
+        {% endif %}
+    </div>
+</div>

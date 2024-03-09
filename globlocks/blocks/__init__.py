@@ -10,9 +10,14 @@ from .bases import (
     BaseBlock,
     BaseBlockConfiguration,
     BaseConfigurableBlock,
+    AttributeConfiguration,
 )
 
 from .template import (
     TemplateBlock,
     TemplateBlockConfiguration,
+)
+
+from .richtext import (
+    RichTextBlock,
 )

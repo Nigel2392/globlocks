@@ -1,0 +1,7 @@
+{% extends "./settings_form.html" %}
+
+{% block inner_children %}
+    {{ block.super }}
+    {% include "wagtailadmin/block_forms/base_block_settings_field.html" with col_size=12 col_md=6 col_lg=3 child=children.align %}
+    {% include "wagtailadmin/block_forms/base_block_settings_field.html" with col_size=12 col_md=6 col_lg=3 child=children.heading_level %}
+{% endblock %}

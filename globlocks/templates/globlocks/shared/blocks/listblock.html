@@ -1,0 +1,6 @@
+{% load wagtailcore_tags %}
+<div class="globlocks-listblock{% if classname %} {{ classname }}{% endif %}">
+    {% for block in blocks %}
+        {% include_block block with block_id=block.id %}
+    {% endfor %}
+</div>

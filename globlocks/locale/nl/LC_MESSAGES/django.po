@@ -1,0 +1,133 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-09 00:26+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: .\application\globlocks\blocks\bases.py:51
+msgid "Configure"
+msgstr "Configureren"
+
+#: .\application\globlocks\blocks\bases.py:52
+msgid "Open Settings"
+msgstr "Open Instellingen"
+
+#: .\application\globlocks\blocks\richtext.py:19
+msgid "Class Name"
+msgstr "Klasse Naam"
+
+#: .\application\globlocks\blocks\richtext.py:24
+msgid "Background Color"
+msgstr "Achtergrondkleur"
+
+#: .\application\globlocks\blocks\richtext.py:29
+msgid "Text Color"
+msgstr "Tekstkleur"
+
+#: .\application\globlocks\blocks\richtext.py:52
+msgid "H2"
+msgstr "H2"
+
+#: .\application\globlocks\blocks\richtext.py:53
+msgid "H3"
+msgstr "H3"
+
+#: .\application\globlocks\blocks\richtext.py:54
+msgid "H4"
+msgstr "H4"
+
+#: .\application\globlocks\blocks\richtext.py:55
+msgid "H5"
+msgstr "H5"
+
+#: .\application\globlocks\blocks\richtext.py:56
+msgid "H6"
+msgstr "H6"
+
+#: .\application\globlocks\blocks\richtext.py:61
+msgid "Left"
+msgstr "Links"
+
+#: .\application\globlocks\blocks\richtext.py:62
+msgid "Center"
+msgstr "Midden"
+
+#: .\application\globlocks\blocks\richtext.py:63
+msgid "Right"
+msgstr "Rechts"
+
+#: .\application\globlocks\blocks\richtext.py:67
+msgid "Align"
+msgstr "Uitlijnen"
+
+#: .\application\globlocks\blocks\richtext.py:85
+#: .\application\globlocks\blocks\richtext.py:104
+msgid "Heading"
+msgstr "Kop"
+
+#: .\application\globlocks\blocks\richtext.py:86
+msgid "Heading Settings"
+msgstr "Kop Instellingen"
+
+#: .\application\globlocks\blocks\richtext.py:98
+#: .\application\globlocks\blocks\richtext.py:143
+#: .\application\globlocks\blocks\richtext.py:150
+msgid "Text"
+msgstr "Tekst"
+
+#: .\application\globlocks\blocks\richtext.py:99
+msgid "The text to be displayed in the heading."
+msgstr "De tekst die getoond moet worden in de kop."
+
+#: .\application\globlocks\blocks\richtext.py:171
+msgid "Text Blocks"
+msgstr "Tekst Blokken"
+
+#: .\application\globlocks\blocks\richtext.py:182
+msgid "Rich Text"
+msgstr "Rijke Tekst"
+
+#: .\application\globlocks\blocks\template.py:27
+msgid "Template"
+msgstr "Sjabloon"
+
+#: .\application\globlocks\blocks\template.py:28
+msgid "The template to use for rendering."
+msgstr "Het sjabloon dat gebruikt moet worden voor het renderen."
+
+#: .\application\globlocks\blocks\template.py:42
+msgid "Default"
+msgstr "Standaard"
+
+#: .\application\globlocks\blocks\template.py:80
+msgid "Invalid template choice (KeyError)."
+msgstr "Ongeldige sjabloon keuze (KeyError)."
+
+#: .\application\globlocks\fields\colorfield.py:6
+msgid "Color Input Field"
+msgstr "Kleur- Invoerveld"
+
+#: .\application\globlocks\wagtail_hooks\rt_extensions.py:17
+msgid "Align Left"
+msgstr "Links Uitlijnen"
+
+#: .\application\globlocks\wagtail_hooks\rt_extensions.py:24
+msgid "Align Center"
+msgstr "Midden Uitlijnen"
+
+#: .\application\globlocks\wagtail_hooks\rt_extensions.py:31
+msgid "Align Right"
+msgstr "Rechts Uitlijnen"

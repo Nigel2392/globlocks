@@ -1,0 +1,8 @@
+{% load wagtailcore_tags %}
+<div class="globlocks-block globlocks-title">
+    {% block tag %}
+        <{{ tagname }} {{ attributes|safe }}>
+            {{ text|safe }}
+        </{{ tagname }}>
+    {% endblock %}
+</div>

@@ -1,4 +1,6 @@
 from wagtail import blocks
+from typing import Union
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from collections import OrderedDict
@@ -11,7 +13,9 @@ class BaseBlockConfiguration(blocks.StructBlock):
 
     MUTABLE_META_ATTRIBUTES = [
         "label",
+        "position",
         "button_label",
+        "show_labels",
         "icon",
     ]
 
@@ -37,6 +41,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         context = super().get_form_context(value, prefix=prefix, errors=errors)
         context["verbose_name"] = self.meta.label or self.name or self.__class__.__name__
         context["button_label"] = self.meta.button_label
+        context["show_labels"] = self.meta.show_labels
         context["button_icon"] = self.meta.icon
         context["full_size"] = self.meta.full
         return context
@@ -47,6 +52,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         )
         label = _("Configure")
         button_label = _("Open Settings")
+        show_labels = True
         full=False
 
 
@@ -73,7 +79,7 @@ class BaseBlock(blocks.StructBlock):
     settings: BaseBlockConfiguration = blocks.Block()
 
     class Meta:
-        block_classname = "ga-block"
+        block_classname = "globlocks-block"
 
     def __init__(self, local_blocks=None, **kwargs):
         local_blocks = self.init_local_blocks(local_blocks, **kwargs)
@@ -89,7 +95,7 @@ class BaseBlock(blocks.StructBlock):
         self.settings = self.advanced_settings_class(
             base_block=self,
             **self.advanced_settings_kwargs(**kwargs)
-        )
+        )   
 
         local_blocks = (
             # add the settings to the local blocks so it can be used in the template
@@ -177,6 +183,7 @@ def delete_child_block(block, block_name):
         del block.child_blocks[block_name]
     except KeyError:
         pass
+    
 
 class BaseConfigurableBlock(blocks.StructBlock, metaclass=BaseConfigurableBlockMeta):
     """
@@ -301,3 +308,45 @@ class BaseConfigurableBlock(blocks.StructBlock, metaclass=BaseConfigurableBlockM
 
         return context
     
+
+
+def format_classname(classname: Union[list[str], str]):
+    if isinstance(classname, list):
+        return " ".join(classname)
+    return classname
+
+def format_styles(styles: Union[list[tuple[str, str]], dict[str, str]]):
+    if isinstance(styles, list):
+        return "".join([f"{k}: {v};" for k, v in styles if v]).strip()
+    return "".join([f"{k}: {v};" for k, v in styles.items() if v]).strip()
+
+def format_default(value):
+    if isinstance(value, list):
+        return " ".join(value)
+    return value
+
+
+attribute_formatters = {
+    "class": format_classname,
+    "style": format_styles,
+}
+
+
+class AttributeConfiguration(BaseBlockConfiguration):
+    def get_attributes(self, value, context=None):
+        return {}
+
+    def render(self, value, context=None):
+        attributes = self.get_attributes(value, context)
+        if not attributes:
+            return ""
+
+        attributes = attributes.copy()
+        for key, val in attributes.items():
+            fmt = attribute_formatters.get(key, format_default)
+            attributes[key] = fmt(val)
+        attrs = [
+            f"{k}=\"{v}\"" for k, v in attributes.items() if v
+        ]
+        return mark_safe(" ".join(attrs))
+

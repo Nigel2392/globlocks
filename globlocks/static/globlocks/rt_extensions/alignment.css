@@ -1,0 +1,25 @@
+.align-left {
+    text-align: left;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+
+div[data-contents] > *[data-block] {
+    margin: 0.625rem 0;
+}
+
+.Draftail-block--ALIGN-LEFT > * {
+    text-align: left;
+}
+.Draftail-block--ALIGN-CENTER > * {
+    text-align: center;
+}
+.Draftail-block--ALIGN-RIGHT > * {
+    text-align: right;
+}

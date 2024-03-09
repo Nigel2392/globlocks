@@ -1,0 +1,3 @@
+{% load wagtailcore_tags %}
+{% include_block self.settings as attrs %}
+{% include "globlocks/shared/blocks/heading.html" with tagname=self.heading_tag attributes=attrs text=self.text %}

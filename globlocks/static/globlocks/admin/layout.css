@@ -1,18 +1,87 @@
 *, ::after, ::before {
   box-sizing: border-box;
 }
+.w-tabs .tab-content, .w-tabs__list {
+  padding-inline-start: 2.5rem;
+}
+.w-panel--nested {
+  --nesting-indent: 1.1rem;
+}
+/* .Draftail-Editor.Draftail-Editor .public-DraftEditor-content, */
+/* .Draftail-Editor.Draftail-Editor .public-DraftEditorPlaceholder-root { */
+  /* padding: 0 0.625rem; */
+/* } */
+div[data-contentpath="settings"]:has(.goodadvice-collapsible) {
+  position: relative;
+}
+div[data-contentpath="settings"]:has(.goodadvice-collapsible) > label {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 .goodadvice-collapsible {
-  padding-top: 5px;
-  padding-bottom: 10px;
+  padding-bottom: 0.5em;
+}
+.goodadvice-collapsible .goodadvice-collapsible-close {
+  position: absolute;
+  top: 0;
+  right: 0.25rem;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 .goodadvice-collapsible .goodadvice-collapsible-target {
-  background-image: linear-gradient(to bottom,var(--guide-line-color,var(--w-color-border-furniture)) 50%,#fff0 0);
-  background-repeat: repeat-y;
-  background-size: 1px 6px;
+  /* background-image: linear-gradient(to bottom,var(--guide-line-color,var(--w-color-border-furniture)) 50%,#fff0 0); */
+  /* background-repeat: repeat-y; */
+  /* background-size: 1px 6px; */
   margin-top: 5px;
   padding-left: var(--nesting-indent);
+
+  position: absolute;
+  top: 95%;
+  background-color: var(--w-color-surface-page);
+  z-index: 5;
+  border: 1px solid var(--w-color-secondary);
+  padding: 1em 0;
+  border-radius: 0.3125rem;
 }
-.goodadvice-collapsible select,
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=date],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=datetime-local],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=email],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=file],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=month],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=number],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=password],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=search],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=tel],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=text],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=time],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=url],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible input[type=week],
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible textarea {
+  padding: 0 0.5em;
+  border-radius: unset;
+  min-height: unset;
+}
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible select {
+  border-radius: unset;
+  min-height: 0;
+  line-height: 1.5;
+  background-position-y:  0.725rem, 0.725rem;
+  padding: 0 0.5rem;
+}
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible .w-field__input {
+  margin-top: 0;
+}
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible .w-field__help p {
+  margin: 0;
+  margin-bottom: 0.25rem;
+}
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible button[type="button"] {
+  height: unset;
+  line-height: 1.5;
+}
+/*div[data-streamfield-stream-container]*/.goodadvice-collapsible select,
 .goodadvice-collapsible.full textarea {
   width: 100%;
 }
