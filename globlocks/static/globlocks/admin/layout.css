@@ -71,20 +71,37 @@ div[data-contentpath="settings"]:has(.goodadvice-collapsible) > label {
   border-radius: 0.3125rem;
   max-width: 800px;
 }
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) .w-panel--nested .w-panel__content {
-  background-image: unset;
-  background-repeat: unset;
-  background-size: unset;
-}
-.w-panel:has(.w-panel__header button[aria-expanded="true"]) div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) div:not(:nth-of-type(1)):has(.c-sf-add-button) {
-  margin-left: 0.25em;
-  margin-top: -2em;
-}
-.w-panel:has(.w-panel__header button[aria-expanded="false"]) div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) div:not(:nth-of-type(1)):has(.c-sf-add-button) {
+/* div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) .w-panel--nested .w-panel__content { */
+  /* background-image: unset; */
+  /* background-repeat: unset; */
+  /* background-size: unset; */
+/* } */
+/* div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) .w-panel > .w-panel__header .w-panel__controls { */
+  /* margin-right: 0; */
+  /* padding: 0; */
+/* } */
+/* div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) .w-panel > .w-panel__header:has(> .w-panel__toggle:is([aria-expanded="true"])) .w-panel__divider { */
+  /* background-image: unset; */
+  /* background-repeat: unset; */
+  /* background-size: unset; */
+/* } */
+/* div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) .w-panel > .w-panel__header:has(> .w-panel__toggle:is([aria-expanded="false"])) .w-panel__controls { */
+  /* margin-right: 2em; */
+  /* margin-top: 0.1rem; */
+  /* margin-bottom: 0.1rem; */
+  /* z-index: 11; */
+/* } */
+/* div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) .w-panel > .w-panel__header:has(> .w-panel__toggle:is([aria-expanded="false"])) .w-panel__controls button.button { */
+  /* z-index: 11; */
+/* } */
+div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) .w-panel:not(:nth-of-type(1)) + div:has(>.c-sf-add-button) {
   margin-left: 0.35em;
-  margin-top: -3em;
+  margin-top: -3.1em;
 }
-.w-panel:has(.w-panel__header button[aria-expanded="false"]) div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) div:not(:nth-of-type(1)) .c-sf-add-button {
+/* div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) div:has(>.c-sf-add-button):not(:nth-of-type(1)) > .c-sf-add-button { */
+  /* margin-left: auto; */
+/* } */
+div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) .w-panel:not(:nth-of-type(1)) + div .c-sf-add-button {
   z-index: 10;
   position: relative;
 }
@@ -105,25 +122,25 @@ div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.gooda
 }
 
 
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=date],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=datetime-local],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=email],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=file],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=month],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=number],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=password],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=search],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=tel],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=text],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=time],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=url],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) input[type=week],
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) textarea {
+.goodadvice-collapsible input[type=date],
+.goodadvice-collapsible input[type=datetime-local],
+.goodadvice-collapsible input[type=email],
+.goodadvice-collapsible input[type=file],
+.goodadvice-collapsible input[type=month],
+.goodadvice-collapsible input[type=number],
+.goodadvice-collapsible input[type=password],
+.goodadvice-collapsible input[type=search],
+.goodadvice-collapsible input[type=tel],
+.goodadvice-collapsible input[type=text],
+.goodadvice-collapsible input[type=time],
+.goodadvice-collapsible input[type=url],
+.goodadvice-collapsible input[type=week],
+.goodadvice-collapsible textarea {
   padding: 0 0.5em;
   border-radius: unset;
   min-height: unset;
 }
-div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) select {
+.goodadvice-collapsible select {
   border-radius: unset;
   min-height: 0;
   line-height: 1.5;

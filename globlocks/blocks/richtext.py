@@ -77,6 +77,7 @@ class HeadingConfiguration(BaseBlockTextConfiguration):
 
     class Meta:
         form_template = "globlocks/blocks/richtext/heading_settings_form.html"
+        label_format = '{heading_level}'
 
     def get_attributes(self, value, context=None):
         attrs = super().get_attributes(value, context)
@@ -89,10 +90,10 @@ class HeadingValue(blocks.StructValue):
         icon = "title"
         label = _("Heading")
         button_label = _("Heading Settings")
-
+    
     @property
     def heading_tag(self):
-        return f"h{self.get('settings').get('heading_level')}"
+        return f"h{self.get('settings').get('heading_level', 2)}"
 
 
 class HeadingElement(BaseBlock):
@@ -110,6 +111,7 @@ class HeadingElement(BaseBlock):
         form_template = "globlocks/blocks/richtext/text_and_settings_form.html"
         value_class = HeadingValue
         hide_help_text = True
+        label_format = '{settings}: {text}'
 
 
 class RichTextElement(BaseBlock):
