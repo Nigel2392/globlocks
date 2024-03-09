@@ -7,6 +7,10 @@
 .w-panel--nested {
   --nesting-indent: 1.1rem;
 }
+.w-field__wrapper,
+.w-form-width {
+  max-width: max(840px, 70vw);
+}
 /* .Draftail-Editor.Draftail-Editor .public-DraftEditor-content, */
 /* .Draftail-Editor.Draftail-Editor .public-DraftEditorPlaceholder-root { */
   /* padding: 0 0.625rem; */
@@ -68,6 +72,8 @@ div[data-contentpath="settings"]:has(.goodadvice-collapsible) > label {
   min-height: 0;
   line-height: 1.5;
   background-position-y:  0.725rem, 0.725rem;
+  background-position-x: calc(100% - 0.7rem), calc(100% - 0.325rem);
+  min-width: 80%;
   padding: 0 0.5rem;
 }
 /*div[data-streamfield-stream-container]*/.goodadvice-collapsible .w-field__input {
