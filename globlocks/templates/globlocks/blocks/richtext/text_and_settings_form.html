@@ -1,0 +1,8 @@
+{% extends "wagtailadmin/block_forms/base_block.html" %}
+
+{% block help_text %}{% endblock %}
+
+{% block inner_children %}
+    {% include "wagtailadmin/block_forms/base_block_field.html" with child=children.text hide_label=True %}
+    {% include "wagtailadmin/block_forms/base_block_field.html" with child=children.settings hide_label=True %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% load wagtailadmin_tags  %}
+
+<div class="goodadvice-collapsible-parent {{ classname }}">
+    {% block help_text %}
+        {% if help_text and not hide_help_text %}
+            <span>
+                <div class="help">
+                    {% icon name="help" classname="default" %}
+                    {{ help_text }}
+                </div>
+            </span>
+        {% endif %}
+    {% endblock help_text %}
+        
+    {% block inner_children %}
+        {% for child in children.values %}
+            {% include "./base_block_field.html" %}
+        {% endfor %}
+    {% endblock inner_children %}
+</div>

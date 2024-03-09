@@ -101,14 +101,15 @@ class HeadingElement(BaseBlock):
     text = blocks.CharBlock(
         required=True,
         label=_("Text"),
-        help_text=_("The text to be displayed in the heading."),
     )
 
     class Meta:
         icon = "title"
         label = _("Heading")
         template = "globlocks/blocks/richtext/heading.html"
+        form_template = "globlocks/blocks/richtext/text_and_settings_form.html"
         value_class = HeadingValue
+        hide_help_text = True
 
 
 class RichTextElement(BaseBlock):
@@ -154,6 +155,8 @@ class RichTextElement(BaseBlock):
         icon = "doc-full"
         label = _("Text")
         template = "globlocks/blocks/richtext/richtext.html"
+        form_template = "globlocks/blocks/richtext/text_and_settings_form.html"
+        hide_help_text = True
 
 
 class RichTextBlock(blocks.StructBlock):

@@ -204,7 +204,7 @@ class BaseAlignmentFeature(SimpleRichTextFeature):
     
     @property
     def identifier(self):
-        return f'align-{self.alignment}'
+        return f'text-{self.alignment}'
     
     def get_css_urls(self) -> dict[str, list[str]]:
         return {

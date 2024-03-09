@@ -63,6 +63,8 @@ class BaseBlock(blocks.StructBlock):
     
     MUTABLE_META_ATTRIBUTES = blocks.StructBlock.MUTABLE_META_ATTRIBUTES + [
         "block_classname",
+        "hide_help_text",
+        "hide_label",
     ]
     STYLE_TEMPLATE_VAR = "styles"
     STYLE_ATTRIBUTES = [
@@ -80,6 +82,8 @@ class BaseBlock(blocks.StructBlock):
 
     class Meta:
         block_classname = "globlocks-block"
+        hide_help_text = False
+        hide_label = False
 
     def __init__(self, local_blocks=None, **kwargs):
         local_blocks = self.init_local_blocks(local_blocks, **kwargs)
@@ -133,6 +137,12 @@ class BaseBlock(blocks.StructBlock):
     
     def advanced_settings_kwargs(self, **kwargs):
         return {}
+    
+    def get_form_context(self, value, prefix="", errors=None):
+        context = super().get_form_context(value, prefix=prefix, errors=errors)
+        context["hide_help_text"] = self.meta.hide_help_text
+        context["hide_label"] = self.meta.hide_label
+        return context
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context)
