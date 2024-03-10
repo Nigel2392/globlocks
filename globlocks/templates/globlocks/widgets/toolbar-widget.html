@@ -1,0 +1,22 @@
+{% load wagtailadmin_tags %}
+<div class="toolbar-widget-wrapper" id="{{widget.attrs.id}}" {% include "django/forms/widgets/attrs.html" %}>
+    {% if widget.label %}
+        <label class="toolbar-widget-label" for="{{widget.attrs.id}}"><strong>{{widget.label}}:</strong></label>
+    {% endif %}
+
+    <textarea class="toolbar-widget-input" id="{{widget.attrs.id}}-input" name="{{widget.name}}">{%if widget.value%}{{widget.value|safe}}{%endif%}</textarea>
+    <div class="toolbar-widget" id="{{widget.attrs.id}}-toolbar">
+
+        {% for tool in widget.tools %}
+            <button class="toolbar-button" type="button" data-tool="{{ tool.tool_type }}" data-tool-group="{{ tool.tool_group }}" title="{{tool.label}}">
+                {% if tool.icon_name %}
+                    {% icon name=tool.icon_name classname="toolbar-widget-tool-icon" %}
+                {% endif %}
+                {% if tool.label %}
+                    {{tool.label}}
+                {% endif %}
+            </button>
+        {% endfor %}
+
+    </div>
+</div>

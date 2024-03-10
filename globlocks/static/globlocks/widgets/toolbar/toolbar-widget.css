@@ -1,0 +1,35 @@
+.toolbar-widget-wrapper {
+
+}
+.toolbar-widget-label {
+
+}
+.toolbar-widget-input {
+    display: none;
+}
+.toolbar-widget {
+
+}
+.toolbar-widget .toolbar-button {
+    padding: 3px;
+    cursor: pointer;
+    background-color: transparent;
+    border-color: transparent;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0.3125rem;
+    transition: all 0.2s;
+}
+.toolbar-widget .toolbar-button .toolbar-widget-tool-icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+.toolbar-widget .toolbar-button:hover {
+    border-color: var(--w-color-border-furniture);
+}
+/* .toolbar-widget .toolbar-button:focus, */
+.toolbar-widget .toolbar-button.active {
+    background-color: var(--w-color-surface-header);
+    border-color: var(--w-color-border-furniture);
+}

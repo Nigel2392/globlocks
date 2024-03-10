@@ -1,3 +1,6 @@
-{% load wagtailcore_tags globlocks %}
-{% block_fragment stripped as attrs %}{% include_block self.settings %}{% endblock_fragment %}
-{% include "globlocks/shared/blocks/heading.html" with attributes=attrs tagname=self.heading_tag text=self.text %}
+{% extends "globlocks/shared/blocks/heading.html" %}
+{% load wagtailcore_tags globlocks_toolbar %}
+
+{% block tag %}
+    {% apply_toolbar self.text self.settings.toolbar class=self.settings.classname %}
+{% endblock %}

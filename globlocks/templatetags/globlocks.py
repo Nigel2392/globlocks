@@ -1,9 +1,14 @@
 from django import template
 from django.template import library
 from django.utils.safestring import mark_safe
+from django.templatetags.static import static
 from django.conf import settings
 
-from ..preview import PreviewUnavailable, preview_of_block
+from globlocks.preview import PreviewUnavailable, preview_of_block
+from globlocks import staticfiles
+
+
+INDENT = getattr(settings, "GLOBLOCKS_SCRIPT_INDENT", "        ")
 
 
 register = library.Library()
@@ -20,6 +25,37 @@ def render_as_preview(context, block, fail_silently=False, **kwargs):
         return block
 
 
+
+
+def format_static_file(file):
+
+    for prefix in ["/", "http://", "https://"]:
+        if file.startswith(prefix):
+            return file
+
+    return static(file)
+
+
+@register.simple_tag(name="globlocks_js")
+def globlocks_js():
+    s = []
+    for js in staticfiles.globlocks_js:
+        if hasattr(js, "__html__"):
+            s.append(js.__html__())
+        else:
+            s.append(f'<script src="{format_static_file(js)}"></script>')
+    return mark_safe(f"\n{INDENT}".join(s))
+
+
+@register.simple_tag(name="globlocks_css")
+def globlocks_css():
+    s = []
+    for css in staticfiles.globlocks_css:
+        if hasattr(css, "__html__"):
+            s.append(css.__html__())
+        else:
+            s.append(f'<link rel="stylesheet" href="{format_static_file(css)}">')
+    return mark_safe(f"\n{INDENT}".join(s))
 
 
 class FragmentNode(template.Node):

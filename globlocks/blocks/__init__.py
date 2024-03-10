@@ -4,6 +4,8 @@ from .block_fields import (
     ColorBlock,
     OrderableBlock,
     Orderable,
+    toolbar,
+    toolbar,
 )
 
 from .bases import (

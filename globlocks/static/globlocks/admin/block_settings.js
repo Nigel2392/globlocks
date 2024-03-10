@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $(document).on('click', '.goodadvice-collapsible button', function(){
+    $(document).on('click', '.goodadvice-collapsible .goodadvice-collapsible-button', function(){
 
         if (!$(this).parent().hasClass('collapsed')) {
             $(this).parent().addClass('collapsed');

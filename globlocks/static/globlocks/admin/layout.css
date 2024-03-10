@@ -61,15 +61,25 @@ div[data-contentpath="settings"]:has(.goodadvice-collapsible) > label {
   /* background-size: 1px 6px; */
   margin-top: 5px;
   padding-left: var(--nesting-indent);
+  position: relative;
 
-  position: absolute;
-  top: 95%;
   background-color: var(--w-color-surface-page);
-  z-index: 5;
   border: 1px solid var(--w-color-secondary);
   padding: 1em 0;
   border-radius: 0.3125rem;
   max-width: 800px;
+}
+.goodadvice-collapsible .goodadvice-collapsible-target.goodadvice-collapsible-absolute {
+  position: absolute;
+  top: 95%;
+  z-index: 5;
+}
+.goodadvice-collapsible-parent .goodadvice-collapsible:last-of-type .goodadvice-collapsible-target.goodadvice-collapsible-absolute {
+    bottom: 95%;
+    top: unset;
+}
+.goodadvice-collapsible .goodadvice-collapsible-target .row {
+  --bs-gutter-x: 0.8em;
 }
 /* div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) .w-panel--nested .w-panel__content { */
   /* background-image: unset; */
@@ -104,13 +114,6 @@ div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.gooda
 div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.goodadvice-collapsible) .w-panel:not(:nth-of-type(1)) + div .c-sf-add-button {
   z-index: 10;
   position: relative;
-}
-.goodadvice-collapsible .goodadvice-collapsible-target .row {
-  --bs-gutter-x: 0.8em;
-}
-.goodadvice-collapsible-parent .goodadvice-collapsible:last-of-type .goodadvice-collapsible-target {
-    bottom: 95%;
-    top: unset;
 }
 .goodadvice-collapsible-parent:has(.w-field:nth-of-type(2) .goodadvice-collapsible) .w-field:nth-of-type(1) .w-field__input {
   margin-top: 0;

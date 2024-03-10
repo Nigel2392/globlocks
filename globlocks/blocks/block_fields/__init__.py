@@ -11,3 +11,4 @@ from .orderable_block import (
     OrderableBlock,
     Orderable,
 )
+from . import toolbar

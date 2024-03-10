@@ -1,7 +1,7 @@
 {% load wagtailadmin_tags i18n %}
 
 <div class="{{ classname }} goodadvice-collapsible{% if full_size %} full{%endif%} collapsed">
-    <button type="button" class="button button-small bicolor button--icon">
+    <button type="button" class="goodadvice-collapsible-button button button-small bicolor button--icon">
         <span class="icon-wrapper">
             {% icon name=button_icon|default:"cog" classname="icon icon-plus icon" %} 
         </span>
@@ -12,7 +12,7 @@
             <small>{{help_text}}</small>
         </div>
     {% endif %}
-    <div class="goodadvice-collapsible-target" style="display:none;">
+    <div class="goodadvice-collapsible-target{% if absolute_position %}goodadvice-collapsible-absolute{%endif%}" style="display:none;">
         <span class="goodadvice-collapsible-close">&times;</span>
         <div class="row">
             {% block inner_children %}

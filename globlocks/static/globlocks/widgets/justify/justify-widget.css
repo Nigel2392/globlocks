@@ -1,0 +1,40 @@
+
+[data-controller="justify-widget"] {
+    display: flex;
+    flex-direction: row;
+}
+[data-controller="justify-widget"] .justify-widget-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    cursor: pointer;
+    border-color: transparent;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0.3125rem;
+    transition: all 0.2s;
+}
+[data-controller="justify-widget"] .justify-widget-option:has(input[type="radio"]:hover) {
+    border-color: var(--w-color-border-furniture);
+}
+[data-controller="justify-widget"] .justify-widget-option:has(input[type="radio"]:checked) {
+    background-color: var(--w-color-surface-header);
+    border-color: var(--w-color-border-furniture);
+}
+/* [data-controller="justify-widget"] .justify-widget-option .justify-widget-label { */
+/*  */
+/* } */
+[data-controller="justify-widget"] .justify-widget-option .justify-widget-icon svg {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+[data-controller="justify-widget"] .justify-widget-option input[type="radio"] {
+    opacity: 0;
+    visibility: hidden;
+    z-index: -1;
+    position: absolute;
+}

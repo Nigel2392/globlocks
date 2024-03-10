@@ -1,7 +1,5 @@
 {% extends "wagtailadmin/block_forms/base_block_settings_struct.html" %}
 
 {% block inner_children %}
-    {% include "wagtailadmin/block_forms/base_block_settings_field.html" with col_size=12 col_md=6 child=children.color_bg %}
-    {% include "wagtailadmin/block_forms/base_block_settings_field.html" with col_size=12 col_md=6 child=children.color_text %}
-    {% include "wagtailadmin/block_forms/base_block_settings_field.html" with col_size=12 col_md=12 col_lg=6 child=children.class_name %}
+    {% include "wagtailadmin/block_forms/base_block_settings_field.html" with col_size=12 child=children.class_name %}
 {% endblock %}

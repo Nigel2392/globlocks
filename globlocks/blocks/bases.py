@@ -16,6 +16,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         "position",
         "button_label",
         "show_labels",
+        "absolute_position",
         "icon",
     ]
 
@@ -44,6 +45,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         context["show_labels"] = self.meta.show_labels
         context["button_icon"] = self.meta.icon
         context["full_size"] = self.meta.full
+        context["absolute_position"] = self.meta.absolute_position
         return context
 
     class Meta:
@@ -53,6 +55,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         label = _("Configure")
         button_label = _("Open Settings")
         show_labels = True
+        absolute_position = False
         full=False
 
 
@@ -359,4 +362,3 @@ class AttributeConfiguration(BaseBlockConfiguration):
             f"{k}=\"{v}\"" for k, v in attributes.items() if v
         ]
         return mark_safe(" ".join(attrs))
-

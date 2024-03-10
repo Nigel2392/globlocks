@@ -1,0 +1,11 @@
+{% load wagtailadmin_tags %}
+<div class="justify-widget-option">
+    <label class="justify-widget-label" {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
+        {% if widget.value %}
+            <div class="justify-widget-icon">
+                {% icon name=widget.value %}
+            </div>
+        {% endif %}
+        {% include "django/forms/widgets/input.html" %}
+    </label>
+</div>

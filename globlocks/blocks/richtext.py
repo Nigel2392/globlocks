@@ -3,6 +3,9 @@ from wagtail import blocks
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from globlocks.blocks import (
+    toolbar,
+)
+from globlocks.blocks import (
     ColorBlock,
 )
 from globlocks.blocks import (
@@ -20,16 +23,6 @@ class BaseBlockTextConfiguration(AttributeConfiguration):
         translatable=False,
     )
 
-    color_bg = ColorBlock(
-        label=_("Background Color"),
-        required=False,
-    )
-
-    color_text = ColorBlock(
-        label=_("Text Color"),
-        required=False,
-    )
-
     class Meta:
         icon = "edit"
         form_template = "globlocks/blocks/richtext/settings_form.html"
@@ -40,39 +33,32 @@ class BaseBlockTextConfiguration(AttributeConfiguration):
             "class": [
                 value.get("class_name", ""),
             ],
-            "style": [
-                ("--color-bg", value.get("color_bg", "")),
-                ("--color-text", value.get("color_text", "")),
-            ],
         }
 
 
 class HeadingConfiguration(BaseBlockTextConfiguration):
-    heading_level_choices = [
-        # (1, _("H1")), # H1 is reserved for page titles
-        (2, _("H2")),
-        (3, _("H3")),
-        (4, _("H4")),
-        (5, _("H5")),
-        (6, _("H6")),
-    ]
-
-    align = blocks.ChoiceBlock(
-        choices=[
-            ("left", _("Left")),
-            ("center", _("Center")),
-            ("right", _("Right")),
-        ],
-        translatable=False,
-        required=True,
-        label=_("Align"),
-        default="left",
-    )
-
-    heading_level = blocks.ChoiceBlock(
-        choices=heading_level_choices,
-        default=2,
-        translatable=False,
+    toolbar = toolbar.ToolbarBlock(
+        tag_name="h2",
+        target="text",
+        required=False,
+        label=_("Toolbar"),
+        tools=[
+            "BOLD",
+            "ITALIC",
+            "UNDERLINE",
+            "STRIKETHROUGH",
+            "JUSTIFY_LEFT",
+            "JUSTIFY_CENTER",
+            "JUSTIFY_RIGHT",
+            # "HEADING_1",
+            "HEADING_2",
+            "HEADING_3",
+            "HEADING_4",
+            "HEADING_5",
+            "HEADING_6",
+            "COLOR",
+            "BACKGROUND_COLOR",
+        ]
     )
 
     class Meta:
@@ -81,8 +67,6 @@ class HeadingConfiguration(BaseBlockTextConfiguration):
 
     def get_attributes(self, value, context=None):
         attrs = super().get_attributes(value, context)
-        classes = attrs.setdefault("class", [])
-        classes.append(f"text-{value.get('align', 'left')}")
         return attrs
     
 class HeadingValue(blocks.StructValue):
@@ -114,6 +98,28 @@ class HeadingElement(BaseBlock):
         label_format = '{settings}: {text}'
 
 
+class RichTextElementConfiguration(BaseBlockTextConfiguration):
+    color_bg = ColorBlock(
+        label=_("Background Color"),
+        required=False,
+    )
+
+    color_text = ColorBlock(
+        label=_("Text Color"),
+        required=False,
+    )
+
+    class Meta:
+        form_template = "globlocks/blocks/richtext/text_settings_form.html"
+
+    def get_attributes(self, value, context=None):
+        attrs = super().get_attributes(value, context)
+        attrs["style"] = [
+            ("--color-bg", value.get("color_bg", "")),
+            ("--color-text", value.get("color_text", "")),
+        ]
+        return attrs
+
 class RichTextElement(BaseBlock):
     always_add_features = [
         'align-left',
@@ -124,7 +130,7 @@ class RichTextElement(BaseBlock):
     disallowed_features = [
         "h1", "h2", "h3", "h4", "h5", "h6",
     ]
-    advanced_settings_class = BaseBlockTextConfiguration
+    advanced_settings_class = RichTextElementConfiguration
 
     text = blocks.Block()
 

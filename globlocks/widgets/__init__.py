@@ -6,3 +6,4 @@ from ..fonts import (
 )
 from .orderable import OrderableWidget, OrderableWidgetAdapter
 from .color_input_widget import ColorInputWidget
+from .justify_widget import JustifyWidget
