@@ -75,7 +75,7 @@ class JustifyWidget {
         for (let i = 0; i < keys.length; i++) {
             let key = keys[i];
             if (this.radioSelectInputs[key].checked) {
-                this.updateTargetElements();
+                this.setState(key);
                 return;
             }
         }
