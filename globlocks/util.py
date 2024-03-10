@@ -2,6 +2,10 @@ from django.db import models as django_models
 import json
 
 class AutoJSONEncoder(json.JSONEncoder):
+    """
+        Helper JSON encoder class that can serialize objects that have a _json method.
+        Used mostly in blocks and widgets.
+    """
     def default(self, obj):
         if obj is django_models.NOT_PROVIDED:
             return None

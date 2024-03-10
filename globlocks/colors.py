@@ -1,3 +1,13 @@
+"""
+    Utility module for converting colors to different formats.
+    Currently supports the following formats:
+    - Hexadecimal
+    - RGB
+    - HSL
+    - RGBA
+    - HSLA
+"""
+
 _default_alpha = 0
 
 class rgb(tuple):

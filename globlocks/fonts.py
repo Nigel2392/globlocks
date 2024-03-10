@@ -1,11 +1,9 @@
-from django.conf import settings
-
-__font_list = getattr(settings, "FONT_LIST", None)
-if __font_list:
-    FONT_LIST = __font_list
 
 from django.utils.safestring import mark_safe
 from django.templatetags.static import static
+from globlocks.settings import (
+    GLOBLOCKS_FONT_LIST,
+)
 
 class FontValue:
     def __init__(self, name=None, path=None, size=None, unit="em"):
@@ -61,7 +59,7 @@ class Font:
         )
 
 
-FONT_LIST = (
+FONT_LIST = GLOBLOCKS_FONT_LIST or (
     Font("Acme", "globlocks/fonts/Acme-Regular.ttf"),
     Font("Bebas Neue", "globlocks/fonts/BebasNeue-Regular.ttf"),
     Font("Caveat", "globlocks/fonts/Caveat-Regular.ttf"),

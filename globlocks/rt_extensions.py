@@ -17,6 +17,10 @@ from wagtail.rich_text import (
 
 
 class SimpleInlineEntityElementHandler(InlineEntityElementHandler):
+    """
+    A simple inline entity element handler that uses the SimpleRichTextFeature
+    to get the attribute data for the entity.
+    """
     immutability: str
     config: "SimpleRichTextFeature"
 
@@ -25,6 +29,10 @@ class SimpleInlineEntityElementHandler(InlineEntityElementHandler):
 
 
 class SimpleEntityHandler(EntityHandler):
+    """
+    A simple entity handler that uses the SimpleRichTextFeature to get the
+    database attributes for the entity.
+    """
     identifier = None
     config: "SimpleRichTextFeature" = None
     
@@ -38,6 +46,10 @@ class SimpleEntityHandler(EntityHandler):
 
 
 class JSTemplateMixin:
+    """
+    A mixin for that allows for rendering a JavaScript
+    template response.
+    """
     js_template_name: str = None
 
     def get_js_template(self, request: HttpRequest):
@@ -62,6 +74,10 @@ class JSTemplateMixin:
 
 
 class SimpleRichTextFeature:
+    """
+        A helper class used to more easily create features
+        for wagtail's Draftail editor.
+    """
     entity_element_handler = SimpleInlineEntityElementHandler
     entity_handler         = SimpleEntityHandler
     entity_feature         = EntityFeature
@@ -78,19 +94,29 @@ class SimpleRichTextFeature:
 
     @property
     def type_(self):
+        """
+            The type of the feature.
+        """
         return self.feature_name.upper()
     
     @property
     def feature_type(self):
+        """
+            The type of the feature for use in JS (django) templates.
+        """
         return self.type_
     
     @staticmethod
     def set_if(d, k, v):
+        """Utility function to set a key in a dictionary if the value is not None."""
         if v:
             d[k] = v
         return d
     
     def get_control(self):
+        """
+            Returns the control object for the feature.
+        """
         control = {
             'type':         self.feature_type,
         }
@@ -103,23 +129,37 @@ class SimpleRichTextFeature:
         return control
     
     def decorate(self, props):
+        """
+            Decorates the props for the Entity feature.
+            Entity features are the only features supported for decoration.
+            This is a limitation of the wagtail editor.
+        """
         attrs = {}
         if self.identifier_key and self.identifier:
             attrs[self.identifier_key] = self.identifier
         return DOM.create_element(self.tag, attrs, props['children'])
     
     def construct_entity_element_handler(self):
+        """
+            Constructs the entity element handler for the feature.
+        """
         class EntityElementHandler(self.entity_element_handler):
             config = self
             immutability = "IMMUTABLE" if self.immutable else "MUTABLE"
         return EntityElementHandler
     
     def construct_entity_handler(self):
+        """
+            Constructs the entity handler for the feature.
+        """
         class EntityHandler(self.entity_handler):
             config = self
         return EntityHandler
     
     def from_database_format(self):
+        """
+            Returns how the feature should be converted from the database format.
+        """
         from_db_tag = f"{self.tag}"
         if self.identifier:
             from_db_tag += f"[{self.identifier_key}='{self.identifier}']"
@@ -128,21 +168,42 @@ class SimpleRichTextFeature:
         }
     
     def to_database_format(self):
+        """
+            How the feature should be converted to the database format.
+        """
         return {}
         
     def get_attribute_data(self, attrs):
+        """
+            Returns the attribute data for the feature.
+            (Used for the entity element handler)
+        """
         raise NotImplementedError("get_attribute_data must be implemented")
 
     def get_db_attributes(self, tag):
+        """
+            Returns the database attributes for the feature.
+            (Used for the entity handler)
+        """
         raise NotImplementedError("get_db_attributes must be implemented for link/embed features")
     
     def expand_db_attributes(self, attrs):
+        """
+            Expands the database attributes for the feature.
+            (Used for the entity handler)
+        """
         raise NotImplementedError("expand_db_attributes must be implemented for link/embed features")
     
     def get_js_urls(self) -> list[str]:
+        """
+            Returns the JavaScript URLs for the feature.
+        """
         return None
     
     def get_css_urls(self) -> dict[str, list[str]]:
+        """
+            Returns the CSS URLs for the feature.
+        """
         return None
 
 
@@ -188,8 +249,10 @@ def register_simple_feature(simple_feature: SimpleRichTextFeature):
         features.default_features.append(simple_feature.feature_name)
 
 
-
 class BaseAlignmentFeature(SimpleRichTextFeature):
+    """
+        A base feature for text alignment purposes.
+    """
     immutable               = False
     identifier_key          = 'class'
     tag                     = 'p'

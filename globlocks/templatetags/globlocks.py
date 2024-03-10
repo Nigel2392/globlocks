@@ -2,13 +2,12 @@ from django import template
 from django.template import library
 from django.utils.safestring import mark_safe
 from django.templatetags.static import static
-from django.conf import settings
 
 from globlocks.preview import PreviewUnavailable, preview_of_block
+from globlocks.settings import GLOBLOCKS_SCRIPT_INDENT, GLOBLOCKS_DEBUG
 from globlocks import staticfiles
 
 
-INDENT = getattr(settings, "GLOBLOCKS_SCRIPT_INDENT", "        ")
 
 
 register = library.Library()
@@ -44,7 +43,7 @@ def globlocks_js():
             s.append(js.__html__())
         else:
             s.append(f'<script src="{format_static_file(js)}"></script>')
-    return mark_safe(f"\n{INDENT}".join(s))
+    return mark_safe(f"\n{GLOBLOCKS_SCRIPT_INDENT}".join(s))
 
 
 @register.simple_tag(name="globlocks_css")
@@ -55,7 +54,7 @@ def globlocks_css():
             s.append(css.__html__())
         else:
             s.append(f'<link rel="stylesheet" href="{format_static_file(css)}">')
-    return mark_safe(f"\n{INDENT}".join(s))
+    return mark_safe(f"\n{GLOBLOCKS_SCRIPT_INDENT}".join(s))
 
 
 class FragmentNode(template.Node):
@@ -116,7 +115,7 @@ def fragment(parser, token):
         nodelist = parser.parse(("endblock_fragment",))
         parser.delete_first_token()
     except ValueError:
-        if settings.DEBUG:
+        if GLOBLOCKS_DEBUG:
             raise template.TemplateSyntaxError(error_message)
         return ""
 

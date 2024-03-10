@@ -1,17 +1,14 @@
 from typing import TYPE_CHECKING, Any, Union
 from django.forms import widgets
-from django.conf import settings
 from wagtail import hooks
 import re
+
+from globlocks.settings import GLOBLOCKS_TOOLSTYLES_ADD_CLASSES
 
 if TYPE_CHECKING:
     from .element import (
         ElementType,
     )
-
-
-STYLES_ADD_CLASSES = getattr(settings, "GLOBLOCKS_TOOLSTYLES_ADD_CLASSES", True)
-
 
 class Tool:
     label: str
@@ -56,7 +53,7 @@ class StyleTool(Tool):
         return False
 
     def format(self, element: "ElementType", value: Any) -> "ElementType":
-        if STYLES_ADD_CLASSES:
+        if GLOBLOCKS_TOOLSTYLES_ADD_CLASSES:
             element.attrs.add("class", f"{self.style_name}-{self.style_value}")
             return element
         
