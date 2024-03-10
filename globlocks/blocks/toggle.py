@@ -14,7 +14,7 @@ class ToggleableBlockConfiguration(BaseBlockConfiguration):
     class Meta:
         label = _("Toggleable")
         button_label = _("Toggleable Settings")
-        show_labels = True
+        hide_labels = False
         full=False
 
 

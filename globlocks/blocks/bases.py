@@ -15,7 +15,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         "label",
         "position",
         "button_label",
-        "show_labels",
+        "hide_labels",
         "absolute_position",
         "icon",
     ]
@@ -42,7 +42,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         context = super().get_form_context(value, prefix=prefix, errors=errors)
         context["verbose_name"] = self.meta.label or self.name or self.__class__.__name__
         context["button_label"] = self.meta.button_label
-        context["show_labels"] = self.meta.show_labels
+        context["hide_labels"] = self.meta.hide_labels
         context["button_icon"] = self.meta.icon
         context["full_size"] = self.meta.full
         context["absolute_position"] = self.meta.absolute_position
@@ -54,7 +54,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         )
         label = _("Configure")
         button_label = _("Open Settings")
-        show_labels = True
+        hide_labels = False
         absolute_position = False
         full=False
 
