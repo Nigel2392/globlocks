@@ -9,7 +9,10 @@ function getTargetFromPython(wagtailPanel, target) {
     if (!targetWrapper) {
         throw new Error('ToolbarWidget requires a target wrapper');
     }
-    let inputs = targetWrapper.find('input');
+    let inputs = [
+        ...targetWrapper.find('input'),
+        ...targetWrapper.find('textarea'),
+    ];
     for (let j = 0; j < inputs.length; j++) {
         let input = inputs[j];
         let inputId = input.id;

@@ -15,6 +15,8 @@ class JustifyWidget {
 
         if (value) {
             this.setState(value);
+        } else {
+            this.setDefault();
         }
     }
 
@@ -24,13 +26,28 @@ class JustifyWidget {
             let target = this.targets[i];
             let targetPanel = $(this.radioSelect).closest(`.w-panel`);
             if (!targetPanel) {
+                console.error(`Target panel not found for target: ${target}`, this.radioSelect);
                 continue;
             }
             let targetWrapper = targetPanel.find(`div[data-contentpath="${target}"]`);
             if (!targetWrapper) {
+                console.error(`Target wrapper not found for target: ${target}`, this.targetPanel);
                 continue
             }
-            let inputs = targetWrapper.find('input');
+            let inputs = [
+                ...targetWrapper.find('input'),
+                ...targetWrapper.find('textarea'),
+            ];
+
+            let $targetWrapper = $(targetWrapper);
+            const value = this.getValue();
+            for (let j = 0; j < keys.length; j++) {
+                let key = keys[j];
+                $targetWrapper.removeClass(key);
+            }
+
+            $targetWrapper.addClass(value);
+
             for (let j = 0; j < inputs.length; j++) {
                 let input = inputs[j];
                 let inputId = input.id;
@@ -41,15 +58,27 @@ class JustifyWidget {
                             $(input).removeClass(key);
                         }
                     }
-                    const value = this.getValue();
                     $(input).addClass(value);
                 }
+            }
+            if (inputs.length === 0) {
+                console.error(`No inputs found for target: ${target}`, targetWrapper);
             }
         }
     }
 
     setDefault() {
-        let key = Object.keys(this.radioSelectInputs)[0]
+        if (!this.radioSelectInputs) {
+            return;
+        }
+        const keys = Object.keys(this.radioSelectInputs)
+        for (let i = 0; i < keys.length; i++) {
+            let key = keys[i];
+            if (this.radioSelectInputs[key].checked) {
+                return;
+            }
+        }
+        const key = keys[0]
         this.setState(this.radioSelectInputs[key].value);
     }
 
