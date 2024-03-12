@@ -39,7 +39,7 @@ class BaseBlockTextConfiguration(AttributeConfiguration):
 class HeadingConfiguration(BaseBlockTextConfiguration):
     toolbar = toolbar.ToolbarBlock(
         tag_name="h2",
-        target="text",
+        targets="text",
         required=False,
         label=_("Toolbar"),
         tools=[

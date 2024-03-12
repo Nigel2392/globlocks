@@ -2,6 +2,7 @@ from django.http import HttpRequest
 from django.template.response import TemplateResponse
 from wagtail.admin.rich_text.editors.draftail.features import (
     EntityFeature,
+    InlineStyleFeature,
     BlockFeature,
 )
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
@@ -271,7 +272,50 @@ class BaseAlignmentFeature(SimpleRichTextFeature):
     
     def get_css_urls(self) -> dict[str, list[str]]:
         return {
-            "all": ["globlocks/rt_extensions/alignment.css"]
+            "all": ["globlocks/rich_text/alignment/alignment.css"]
+        }
+    
+    def get_attribute_data(self, attrs):
+        return {
+            self.identifier_key: self.identifier,
+        }
+
+    def to_database_format(self):
+        return super().to_database_format() | {
+            'block_map': {
+                self.type_: {
+                    'element': self.tag,
+                    'props': {
+                        self.identifier_key: self.identifier,
+                    }
+                }
+            }
+        }
+
+
+class BaseTextSizeHandler(SimpleRichTextFeature):
+    """
+        A base feature for text size purposes.
+    """
+    immutable               = False
+    identifier_key          = 'class'
+    tag                     = 'span'
+    entity_feature          = EntityFeature
+    entity_handler          = SimpleEntityHandler
+    entity_element_handler  = SimpleInlineEntityElementHandler
+    size                    = None
+
+    @property
+    def feature_name(self):
+        return f"text-size-{self.size}"
+    
+    @property
+    def identifier(self):
+        return f'text-size-{self.size}'
+    
+    def get_css_urls(self) -> dict[str, list[str]]:
+        return {
+            "all": ["globlocks/rt_extensions/text_size.css"]
         }
     
     def get_attribute_data(self, attrs):

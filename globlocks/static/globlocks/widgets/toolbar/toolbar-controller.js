@@ -1,21 +1,32 @@
+function atobJSON(str) {
+    try {
+        data = atob(str);
+    } catch (e) {
+        throw new Error('Malformed base64 string');
+    }
+    try {
+        data = JSON.parse(data);
+    } catch (e) {
+        throw new Error('Malformed JSON string');
+    }
+    return data;
+}
+
 class ToolbarController extends window.StimulusModule.Controller {
     static values = { 
-        target:             { type: String },
+        targets:            { type: String },
         tools:              { type: String },
         // object:              { default: {}, type: Object },
     };
 
     connect() {
 
-        let tools = atob(this.toolsValue);
-        try {
-            tools = JSON.parse(tools);
-        } catch (e) {
-            throw new Error('ToolbarWidget requires a tools object');
-        }
+        let targets = atobJSON(this.targetsValue);
+        let tools = atobJSON(this.toolsValue);
+
         this.toolbar = new ToolbarWidget(
             this.element.id,
-            this.targetValue,
+            targets,
             tools,
         );
     }

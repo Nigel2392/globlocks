@@ -1,5 +1,5 @@
 from django import forms
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Union
 if TYPE_CHECKING:
     from .bar import Tool
 
@@ -11,16 +11,16 @@ from .toolbar_widget import (
 
 class ToolbarFormField(forms.JSONField):
 
-    def __init__(self, target: str = None, tools: list["Tool"] = None, *args, **kwargs):
+    def __init__(self, targets: Union[str, list[str]] = None, tools: list["Tool"] = None, *args, **kwargs):
         self.tools = tools
-        self.target = target
+        self.targets = targets
         kwargs["encoder"] = AutoJSONEncoder
         super().__init__(*args, **kwargs)
 
     @property
     def widget(self):
         return ToolbarWidget(
-            target=self.target,
+            targets=self.targets,
             tools=self.tools,
             encoder=AutoJSONEncoder
         )

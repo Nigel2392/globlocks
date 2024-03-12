@@ -23,3 +23,12 @@ div[data-contents] > *[data-block] {
 .Draftail-block--ALIGN-RIGHT > * {
     text-align: right;
 }
+.editor-alignment-left > *{
+    text-align: left;
+}
+.editor-alignment-center > *{
+    text-align: center;
+}
+.editor-alignment-right > *{
+    text-align: right;
+}

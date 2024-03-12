@@ -16,25 +16,38 @@ class ToolbarValue:
         self.value = value
         self.tools = tools
 
+    def get_value(self):
+        return self.value
 
     def create_element(self) -> ElementType:
         return ElementType(self, self.tag_name, self.value)
+    
+    def _generate_element(self, element: ElementType = None, **kwargs) -> ElementType:
+        if element is None:
+            element = self.create_element()
 
-    def render_text(self, text: str):
+        for tool in self.tools:
+            if tool.tool_type in self.value and tool.should_format(self.value[tool.tool_type]):
+                element = tool.format(element, self.value[tool.tool_type])
+
+        for key, value in kwargs.items():
+            if value is not None:
+                element.attrs.add(key, value)
+
+        return element
+    
+    def render_text(self, text: str, **kwargs):
         """
 
         """
         element = self.create_element()
-        return self.render_element(element, text)
+        return self.render_element(element, text, **kwargs)
     
-    def render_element(self, element: ElementType, text: str):
+    def render_element(self, element: ElementType, text: str, **kwargs):
         """
             Renders the element with the given value and text.
         """
-        if self.value is not None:
-            for tool in self.tools:
-                if tool.tool_type in self.value and tool.should_format(self.value[tool.tool_type]):
-                    element = tool.format(element, self.value[tool.tool_type])
+        element = self._generate_element(element, **kwargs)
         return element.render_text(text)
 
     def __str__(self):
@@ -95,7 +108,7 @@ class ToolbarBlock(blocks.FieldBlock):
 
     def __init__(
         self,
-        target: str = None,
+        targets: Union[str, list[str]] = None,
         tools: list[Union[Tool, str]] = None,
         required=False,
         help_text=None,
@@ -107,7 +120,7 @@ class ToolbarBlock(blocks.FieldBlock):
             tools = DEFAULT_TOOLS
 
         self.tools = tools
-        self.target = target
+        self.targets = targets
         self.field_options = {
             "required": required,
             "help_text": help_text,
@@ -147,7 +160,7 @@ class ToolbarBlock(blocks.FieldBlock):
     @cached_property
     def field(self):
         return ToolbarFormField(
-            target=self.target,
+            targets=self.targets,
             tools=self.tools_list,
             **self.field_options,
         )

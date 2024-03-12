@@ -12,7 +12,7 @@
             <small>{{help_text}}</small>
         </div>
     {% endif %}
-    <div class="goodadvice-collapsible-target{% if absolute_position %}goodadvice-collapsible-absolute{%endif%}" style="display:none;">
+    <div class="goodadvice-collapsible-target{% if absolute_position %} goodadvice-collapsible-absolute{%endif%}" style="display:none;">
         <span class="goodadvice-collapsible-close">&times;</span>
         <div class="row">
             {% block inner_children %}

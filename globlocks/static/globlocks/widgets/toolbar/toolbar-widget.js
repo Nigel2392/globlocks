@@ -18,6 +18,7 @@ function registerToolbarWidgetTool(toolObject) {
 }
 
 
+
 class ToolbarTool {
     constructor(toolType) {
         if (!toolType) {
@@ -34,38 +35,38 @@ class ToolbarTool {
         return !!value;
     }
 
-    initialize(toolbar, button, target, value = null) {
+    initialize(toolbar, button, targets, value = null) {
         this.toolbar = toolbar;
         this.button = button;
-        this.target = target;
+        this.targets = targets;
         this.value = value;
     }
 
-    execute(target, groups = null) {
+    execute(targets, groups = null) {
         if (groups) {
             for (let j = 0; j < groups.length; j++) {
                 let groupTool = groups[j];
                 if (groupTool !== this) {
-                    groupTool.resetState(this.target);
+                    groupTool.resetState(this.targets);
                     groupTool.button.classList.remove('active');
                 }
             }
         }
 
         if (this.button.classList.contains('active')) {
-            this.resetState(target);
+            this.resetState(targets);
             this.button.classList.remove('active');
          } else {
-             this.setState(target);
+             this.setState(targets);
              this.button.classList.add('active');
          }
     }
 
-    setState(target) {
+    setState(targets) {
         // Do nothing
     }
 
-    resetState(target) {
+    resetState(targets) {
         // Do nothing
     }
 }
@@ -93,14 +94,14 @@ class StyleToolbarWidgetTool extends ToolbarTool {
     }
 
     getState() {
-        let styleValue = this.target.style[this.styleAttribute];
+        let styleValue = this.targets[0].style[this.styleAttribute];
         if (styleValue) {
             styleValue = styleValue.split(' ');
         }
         return styleValue;
     }
 
-    setState(target) {
+    setState(targets) {
         let styleValue = this.getState() || [];
         for (let i = 0; i < this.styleValue.length; i++) {
             let value = this.styleValue[i];
@@ -108,10 +109,14 @@ class StyleToolbarWidgetTool extends ToolbarTool {
                 styleValue.push(value);
             }
         }
-        target.style[this.styleAttribute] = styleValue.join(' ');
+        const styleJoined = styleValue.join(' ');
+        for (let i = 0; i < targets.length; i++) {
+            let target = targets[i];
+            target.style[this.styleAttribute] = styleJoined;
+        }
     }
 
-    resetState(target) {
+    resetState(targets) {
         let styleValue = this.getState() || [];
         for (let i = 0; i < this.styleValue.length; i++) {
             let value = this.styleValue[i];
@@ -119,7 +124,10 @@ class StyleToolbarWidgetTool extends ToolbarTool {
                 styleValue.splice(styleValue.indexOf(value), 1);
             }
         }
-        target.style[this.styleAttribute] = styleValue.join(' ');
+        for (let i = 0; i < targets.length; i++) {
+            let target = targets[i];
+            target.style[this.styleAttribute] = styleValue.join(' ');
+        }
     }
 
     isActive(value) {
@@ -192,17 +200,25 @@ class HeadingToolbarWidgetTool extends ToolbarTool {
     }
 
     getState() {
-        return this.target.dataset[this._heading.heading];
+        return this.value;
     }
 
-    setState(target) {
-        target.dataset[this._heading.heading] = this._heading.heading;
-        target.style.fontSize = this._heading.fontSize;
+    setState(targets) {
+        this.value = this._heading.heading;
+        for (let i = 0; i < targets.length; i++) {
+            let target = targets[i];
+            target.dataset[this._heading.heading] = this._heading.heading;
+            target.style.fontSize = this._heading.fontSize;
+        }
     }
 
-    resetState(target) {
-        delete target.dataset[this._heading.heading];
-        target.style.fontSize = '';
+    resetState(targets) {
+        this.value = null;
+        for (let i = 0; i < targets.length; i++) {
+            let target = targets[i];
+            delete target.dataset[this._heading.heading];
+            target.style.fontSize = '';
+        }
     }
 }
 
@@ -218,13 +234,11 @@ class ColorToolbarWidgetTool extends ToolbarTool {
         return !!value;
     }
 
-    initialize(toolbar, button, target, value = null) {
-        super.initialize(toolbar, button, target, value);
+    initialize(toolbar, button, targets, value = null) {
+        super.initialize(toolbar, button, targets, value);
         if (!("Pickr" in window)) {
             throw new Error('ColorToolbarWidgetTool requires Pickr - did you load pickr.js?');
         }
-        this.button = button;
-        this.target = target;
         this.pickr = Pickr.create({
             el: this.button,
             useAsButton: true,
@@ -268,24 +282,25 @@ class ColorToolbarWidgetTool extends ToolbarTool {
         this.pickr.on('save', (color, instance) => {
             if (color) {
                 this.value = color.toRGBA().toString(1);
-                this.setState(this.target);
+                this.setState(this.targets);
             } else {
-                this.resetState(this.target);
+                this.resetState(this.targets);
             }
+            this.toolbar.updateState();
         });
         if (this.value) {
             this.pickr.on('init', (color, instance) => {
-                this.setState(this.target);
+                this.setState(this.targets);
             });
         }
         this.pickr.on('clear', (color, instance) => {
             console.log('clear');
-            this.resetState(this.target);
+            this.resetState(this.targets);
         });
     }
 
-    execute(target, group = null) {
-        if (target.dataset[this.attribute]) {
+    execute(targets, group = null) {
+        if (this.value) {
             this.button.classList.add('active');
         } else {
             this.button.classList.remove('active');
@@ -293,21 +308,25 @@ class ColorToolbarWidgetTool extends ToolbarTool {
     }
 
     getState() {
-        return this.target.dataset[this.attribute]
+        return this.value;
     }
 
-    setState(target) {
-        target.dataset[this.attribute] = this.value;
-        target.style[this.attribute] = this.value;
-        this.button.classList.add('active');
-
+    setState(targets) {
+        for (let i = 0; i < targets.length; i++) {
+            let target = targets[i];
+            target.dataset[this.attribute] = this.value;
+            target.style[this.attribute] = this.value;
+        }
     }
 
-    resetState(target) {
+    resetState(targets) {
         this.value = null;
-        delete target.dataset[this.attribute];
-        target.style[this.attribute] = '';
         this.button.classList.remove('active');
+        for (let i = 0; i < targets.length; i++) {
+            let target = targets[i];
+            delete target.dataset[this.attribute];
+            target.style[this.attribute] = '';
+        }
     }
 }
 
@@ -340,13 +359,17 @@ const TOOLBAR_WIDGETS = {
  * @param {array} tools - The tools to register
  */
 class ToolbarWidget {
-    constructor(querySelector, target = null, tools = null) {
+    constructor(querySelector, targets = null, tools = null) {
         if (tools === null) {
             tools = Object.keys(TOOLBAR_WIDGETS);
         }
 
-        if (target === null) {
-            throw new Error('ToolbarWidget requires a target');
+        if (targets === null) {
+            throw new Error('ToolbarWidget requires a list of targets to apply the tools to');
+        }
+
+        if (typeof targets !== typeof []) {
+            targets = [targets];
         }
 
         /** @type {HTMLElement} */
@@ -358,9 +381,15 @@ class ToolbarWidget {
         /** @type {NodeList} */
         this.toolbarButtons = this.toolbar.querySelectorAll('.toolbar-button');
         /** @type {HTMLElement} */
-        this.target = getTargetFromPython($(this.wrapper).closest(`.w-panel`), target);
-        if (!this.target) {
-            throw new Error('ToolbarWidget requires a target input: ' + target);
+        this.targets = targets.map((target) => {
+            return getTargetFromPython($(this.wrapper).closest(`.w-panel`), target);
+        });
+        if (!this.targets) {
+            throw new Error('ToolbarWidget requires targets');
+        }
+
+        if (this.targets.length !== targets.length) {
+            throw new Error('ToolbarWidget requires all targets to be found');
         }
 
         let value = null;
@@ -419,13 +448,13 @@ class ToolbarWidget {
             }.bind(this));
 
             if (tool in value) {
-                toolObject.initialize(this, button, this.target, value[tool]);
+                toolObject.initialize(this, button, this.targets, value[tool]);
             } else {
-                toolObject.initialize(this, button, this.target, {});
+                toolObject.initialize(this, button, this.targets, {});
             }
             
             if (toolObject.isActive(value[tool])) {
-                toolObject.setState(this.target);
+                toolObject.setState(this.targets);
                 toolObject.button.classList.add('active');
             }
         }
@@ -440,7 +469,7 @@ class ToolbarWidget {
         let groupObject = this._toolGroups[toolGroup];
 
         // Let the tool decide how to handle it.
-        toolObject.execute(this.target, groupObject);
+        toolObject.execute(this.targets, groupObject);
 
         this.updateState();
     }
@@ -453,10 +482,10 @@ class ToolbarWidget {
                 throw new Error(`ToolbarWidget tool ${tool} not found`);
             }
             if (tool in value && value[tool]) {
-                toolObject.setState(this.target);
+                toolObject.setState(this.targets);
                 toolObject.button.classList.add('active');
             } else {
-                toolObject.resetState(this.target);
+                toolObject.resetState(this.targets);
                 toolObject.button.classList.remove('active');
             }
         }

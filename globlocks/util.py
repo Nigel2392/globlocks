@@ -1,4 +1,6 @@
+from typing import Optional, Tuple, TypeVar
 from django.db import models as django_models
+from wagtail import blocks
 import json
 
 class AutoJSONEncoder(json.JSONEncoder):
@@ -19,3 +21,23 @@ class AutoJSONEncoder(json.JSONEncoder):
                     return super().default(obj)
                 except Exception as e:
                     raise Exception(f"Could not serialize {obj} to JSON") from e
+
+
+_BLOCK_TUPLE = TypeVar("_BLOCK_TUPLE", bound=Tuple[Tuple[str, blocks.Block]])
+
+
+def make_block_tuple(local_blocks: Optional[_BLOCK_TUPLE] = None, **blocks: blocks.Block) -> Tuple[_BLOCK_TUPLE, _BLOCK_TUPLE]:
+    """
+        Helper function to create a tuple of blocks from a kwargs;
+
+        This is useful for overriding the `__init__` method
+        of your own custom block to add attributes to sub-blocks.
+    """
+
+    initial = local_blocks or ()
+
+    if not local_blocks:
+        local_blocks = ()
+
+    local_blocks = tuple(local_blocks)
+    return local_blocks + tuple((k, v) for k, v in blocks.items()), initial

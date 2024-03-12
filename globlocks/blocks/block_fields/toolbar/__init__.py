@@ -4,6 +4,9 @@ from .bar import (
 )
 from .element import (
     ElementType,
+    Attributes,
+    Attribute,
+    StyleAttribute,
 )
 from .toolbar_widget import (
     ToolbarWidget,

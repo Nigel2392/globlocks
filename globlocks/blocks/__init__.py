@@ -23,3 +23,5 @@ from .template import (
 from .richtext import (
     RichTextBlock,
 )
+
+from . import components

@@ -43,10 +43,12 @@ def register_word_counter(features):
         ControlFeature({
                 'type': feature_name,
             },
-            js=['globlocks/rt_extensions/word-counter.js'],
+            js=['globlocks/richtext/rt_extensions/word-counter.js'],
         )
     )
+
 
 register_simple_feature(AlignLeftFeature)
 register_simple_feature(AlignCenterFeature)
 register_simple_feature(AlignRightFeature)
+

@@ -15,7 +15,7 @@ class ToolbarWidget(widgets.Input):
     template_name = "globlocks/widgets/toolbar-widget.html"
 
     def __init__(
-        self, attrs=None, target: str = None, tools: Union[list[Union["Tool", str]], callable] = None, encoder=AutoJSONEncoder
+        self, attrs=None, targets: Union[str, list[str]] = None, tools: Union[list[Union["Tool", str]], callable] = None, encoder=AutoJSONEncoder
     ):
         default_attrs = {
             "class": "toolbar-widget",
@@ -23,15 +23,19 @@ class ToolbarWidget(widgets.Input):
         attrs = attrs or {}
         attrs = {**default_attrs, **attrs}
 
-        if not target:
+        if not targets:
             raise ValueError("target must be specified")
 
         if not tools and not self.tools:
             raise ValueError("tools must be specified")
         
+        if not isinstance(targets, (list, tuple)):
+            targets = [targets]
+        
         self.tools = tools or self.tools
-        self.target = target
+        self.targets = targets
         self.encoder = encoder
+
         super().__init__(attrs=attrs)
 
     @cached_property
@@ -46,7 +50,11 @@ class ToolbarWidget(widgets.Input):
     def build_attrs(self, base_attrs, extra_attrs):
         attrs = super().build_attrs(base_attrs, extra_attrs)
         attrs["data-controller"] = "toolbar-widget"
-        attrs["data-toolbar-widget-target-value"] = self.target
+        attrs["data-toolbar-widget-targets-value"] = base64.b64encode(
+            json.dumps(
+            self.targets,
+            cls=self.encoder
+        ).encode("utf-8")).decode("utf-8")
         attrs["data-toolbar-widget-tools-value"] = base64.b64encode(
             json.dumps(
             self.tools_list,

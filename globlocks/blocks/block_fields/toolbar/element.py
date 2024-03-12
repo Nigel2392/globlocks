@@ -1,4 +1,4 @@
-from typing import Any, TYPE_CHECKING
+from typing import Any, TYPE_CHECKING, Tuple
 from collections import defaultdict
 
 if TYPE_CHECKING:
@@ -137,8 +137,12 @@ class ElementType:
         self.tag = tag
         self.value = value
         self.attrs = Attributes()
+
+    def generate(self) -> Tuple[str, Attributes]:
+        return (self.tag, self.attrs)
     
     def render_text(self, text: str):
-        return mark_safe(f"<{self.tag} {self.attrs}>{text}</{self.tag}>")
+        tag, attrs = self.generate()
+        return mark_safe(f"<{tag} {attrs}>{text}</{tag}>")
     
 
