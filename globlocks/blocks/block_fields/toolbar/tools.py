@@ -1,9 +1,9 @@
 from typing import TYPE_CHECKING, Any, Union
 from django.forms import widgets
-from wagtail import hooks
 import re
 
 from globlocks.settings import GLOBLOCKS_TOOLSTYLES_ADD_CLASSES
+from globlocks import util
 
 if TYPE_CHECKING:
     from .element import (
@@ -145,7 +145,7 @@ def _register_all_tools():
     if _registered_all_tools:
         raise Exception("Already registered all tools")
 
-    h = hooks.get_hooks("globlocks.register_toolbar_tools")
+    h = util.get_hooks("register_toolbar_tools")
     for hook in h:
         hook(tools)
 

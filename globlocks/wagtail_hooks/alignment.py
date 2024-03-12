@@ -11,7 +11,7 @@ from wagtail.admin.rich_text.editors.draftail.features import (
     ControlFeature,
 )
 from wagtail import hooks
-
+from globlocks import util
 
 
 @hooks.register('insert_global_admin_js')
@@ -61,6 +61,7 @@ def _new_alignment_handler(tag_name, block_type):
     }
 
 
+
 class AlignmentBlock(Block):
     """
         Block for persisting data-alignment attribute.
@@ -74,6 +75,8 @@ class AlignmentBlock(Block):
         return super().as_dict() | {
             "data": self.data,
         }
+
+
 
 class AlignmentHandler(BlockElementHandler):
     """
@@ -89,6 +92,7 @@ class AlignmentHandler(BlockElementHandler):
         )
 
 
+
 _BLOCK_TYPES = (
     ("unstyled", "p"),
     ("header-one", "h1"),
@@ -102,11 +106,13 @@ _BLOCK_TYPES = (
 )
 
 
+
 @hooks.register('register_rich_text_features')
 def register_richtext_alignment_features(features):
     feature_name = "text-alignment"
 
     # Register the control feature (plugin is also included in the JS)
+    features.default_features.append(feature_name)
     features.register_editor_plugin(
         "draftail",
         feature_name,
@@ -119,7 +125,6 @@ def register_richtext_alignment_features(features):
             css={"all": ["globlocks/richtext/alignment/alignment.css"]},
         ),
     )
-    features.default_features.append(feature_name)
 
     block_map = {}
     from_db_format = {}
@@ -130,10 +135,17 @@ def register_richtext_alignment_features(features):
             _new_alignment_handler(tag_name, block_type)
         )
 
-        
-    features.register_converter_rule('contentstate', feature_name, {
-        'to_database_format': {
+    for fn in util.get_hooks('register_block_types'):
+        block_map, from_db_format = fn(block_map, from_db_format)
+
+    config = {
+        "to_database_format": {
             "block_map": block_map,
         },
         "from_database_format": from_db_format,
-    })
+    }
+
+    for fn in util.get_hooks('construct_alignment_config'):
+        config = fn(config)
+
+    features.register_converter_rule('contentstate', feature_name, config)

@@ -1,6 +1,9 @@
 from typing import Optional, Tuple, TypeVar
 from django.db import models as django_models
-from wagtail import blocks
+from wagtail import (
+    blocks,
+    hooks,
+)
 import json
 
 class AutoJSONEncoder(json.JSONEncoder):
@@ -21,6 +24,15 @@ class AutoJSONEncoder(json.JSONEncoder):
                     return super().default(obj)
                 except Exception as e:
                     raise Exception(f"Could not serialize {obj} to JSON") from e
+                
+
+def get_hooks(hook_name: str):
+    """
+        Helper function to get hooks from the wagtail hooks registry.
+        Namespaced to the globlocks app.
+    """
+    return hooks.get_hooks(f'globlocks.{hook_name}')
+
 
 
 _BLOCK_TUPLE = TypeVar("_BLOCK_TUPLE", bound=Tuple[Tuple[str, blocks.Block]])

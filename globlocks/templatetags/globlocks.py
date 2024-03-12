@@ -5,7 +5,10 @@ from django.templatetags.static import static
 
 from globlocks.preview import PreviewUnavailable, preview_of_block
 from globlocks.settings import GLOBLOCKS_SCRIPT_INDENT, GLOBLOCKS_DEBUG
-from globlocks import staticfiles
+from globlocks.staticfiles import (
+    globlocks_js as staticfiles_globlocks_js,
+    globlocks_css as staticfiles_globlocks_css,
+)
 
 
 
@@ -38,7 +41,7 @@ def format_static_file(file):
 @register.simple_tag(name="globlocks_js")
 def globlocks_js():
     s = []
-    for js in staticfiles.globlocks_js:
+    for js in staticfiles_globlocks_js:
         if hasattr(js, "__html__"):
             s.append(js.__html__())
         else:
@@ -49,7 +52,7 @@ def globlocks_js():
 @register.simple_tag(name="globlocks_css")
 def globlocks_css():
     s = []
-    for css in staticfiles.globlocks_css:
+    for css in staticfiles_globlocks_css:
         if hasattr(css, "__html__"):
             s.append(css.__html__())
         else:
