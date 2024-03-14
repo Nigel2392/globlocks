@@ -69,7 +69,7 @@ class HeadingTool(Tool):
         self.tag_name = tag_name
 
     def should_format(self, value: Any) -> bool:
-        return value == self.tag_name
+        return (not not value) and (value == self.tag_name)
 
     def format(self, element: "ElementType", value: Any) -> "ElementType":
         element.tag = self.tag_name

@@ -1,0 +1,10 @@
+{% extends "globlocks/shared/blocks/base.html" %}
+
+{% load wagtailimages_tags %}
+
+{% block classname %}globlocks-image-text-image {{ position_of_block }}{% endblock %}
+
+{% block content %}
+    {% image self.image original as img %}
+    <img src="{{ img.url }}" alt="{{ self.image.alt }}" class="globlocks-img-responsive half">
+{% endblock %}

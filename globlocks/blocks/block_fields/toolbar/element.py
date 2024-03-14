@@ -18,6 +18,9 @@ class Attribute:
 
     def __contains__(self, value: str) -> bool:
         return value in self.values
+    
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.name}, {self.values})"
 
     def has(self, value: str) -> bool:
         return value in self
@@ -96,6 +99,9 @@ class Attributes:
     
     def __str__(self):
         return " ".join([str(attr) for attr in self])
+    
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.attrs.values()})"
     
     def render(self) -> str:
         return " ".join([str(attr) for attr in self])

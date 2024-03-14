@@ -107,12 +107,11 @@ _BLOCK_TYPES = (
 
 
 
-@hooks.register('register_rich_text_features')
+@hooks.register('register_rich_text_features', order=-1)
 def register_richtext_alignment_features(features):
     feature_name = "text-alignment"
 
     # Register the control feature (plugin is also included in the JS)
-    features.default_features.append(feature_name)
     features.register_editor_plugin(
         "draftail",
         feature_name,

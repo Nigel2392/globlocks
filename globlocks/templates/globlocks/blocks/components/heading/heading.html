@@ -1,0 +1,3 @@
+{% load globlocks.toolbar %}
+{% toolbar_attributes self.settings.toolbar as data %}
+{% include "globlocks/shared/blocks/heading.html" with title=self.heading subtitle=self.subheading tagname=data.0 block_attributes=data.1|safe %}

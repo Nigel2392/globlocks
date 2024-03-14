@@ -44,6 +44,10 @@ div[data-contentpath="settings"]:has(.goodadvice-collapsible) > label {
   top: 0;
   right: 0;
 }
+.goodadvice-collapsible-parent .w-panel--nested .w-field__wrapper {
+  padding-bottom: 0;
+  margin-bottom: 0.25em;
+}
 .goodadvice-collapsible {
   padding-bottom: 0.5em;
 }

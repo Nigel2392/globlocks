@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags  %}
 
-<div class="goodadvice-collapsible-parent {{ classname }}">
+<div class="goodadvice-collapsible-parent{% if compact_view %} goodadvice-compact{% endif %} {{ classname }}">
     {% block help_text %}
         {% if help_text and not hide_help_text %}
             <span>

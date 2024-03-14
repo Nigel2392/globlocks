@@ -1,4 +1,4 @@
-{% load globlocks_admin %}
+{% load globlocks.admin %}
 <div class="{% columns col_size|default:12 col_xs col_sm col_md col_lg col_xl %}">
     <div class="w-field" data-field data-contentpath="{{ child.block.name }}">
         {% if child.block.label and not hide_labels %}

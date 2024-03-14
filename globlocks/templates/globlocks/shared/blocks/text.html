@@ -1,5 +1,6 @@
-{% load wagtailcore_tags %}
-<div class="globlocks-block globlocks-text">
+{% extends "./base.html" %}
+{% block classname %}globlocks-text{% if classname %} {{ classname }}{% endif %}{% endblock %}
+{% block content %}
     <div {{ attributes }}>
         {% if safe %}
             {{ text }}
@@ -7,4 +8,4 @@
             {{ text|safe }}
         {% endif %}
     </div>
-</div>
+{% endblock %}

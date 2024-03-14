@@ -394,7 +394,13 @@ class ToolbarWidget {
 
         let value = null;
         if (this.input.value) {
-            value = JSON.parse($(this.input).val());
+            value = $(this.input).val()
+        }
+
+        try {
+            value = JSON.parse(unescape(value));
+        } catch (e) {
+            value = null;
         }
 
         if (!value) {

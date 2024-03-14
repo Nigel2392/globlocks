@@ -15,6 +15,7 @@ class HeadingConfiguration(ToggleShowableConfiguration):
             "heading",
             "subheading"
         ],
+        tag_name="h2",
         tools = [
             "BOLD",
             "ITALIC",
@@ -23,8 +24,10 @@ class HeadingConfiguration(ToggleShowableConfiguration):
             "JUSTIFY_LEFT",
             "JUSTIFY_CENTER",
             "JUSTIFY_RIGHT",
-            "COLOR",
-            "BACKGROUND_COLOR",
+            "HEADING_2",
+            "HEADING_3",
+            "HEADING_4",
+
         ],
         required=False,
         label=_("Toolbar"),
@@ -53,6 +56,7 @@ class Heading(ToggleShowableBlock):
     )
 
     class Meta:
+        group=_("Text")
         icon = "title"
         label = _("Heading")
         label_format = _("Heading: {heading}")

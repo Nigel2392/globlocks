@@ -79,6 +79,7 @@ class SimpleRichTextFeature:
         A helper class used to more easily create features
         for wagtail's Draftail editor.
     """
+    register_default       = False
     entity_element_handler = SimpleInlineEntityElementHandler
     entity_handler         = SimpleEntityHandler
     entity_feature         = EntityFeature
@@ -247,7 +248,8 @@ def register_simple_feature(simple_feature: SimpleRichTextFeature):
             'to_database_format': simple_feature.to_database_format(),
         })
 
-        features.default_features.append(simple_feature.feature_name)
+        if simple_feature.register_default:
+            features.default_features.append(simple_feature.feature_name)
 
 
 class BaseAlignmentFeature(SimpleRichTextFeature):

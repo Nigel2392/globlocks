@@ -92,12 +92,12 @@ class ToolbarBlock(blocks.FieldBlock):
         And in the template:
         ```django-template
         {# myapp/heading.html #}
-        {% load globlocks_toolbar %}
+        {% load globlocks_.toolbar %}
         {% apply_toolbar self.text self.settings.toolbar class="my extra class" %}
         ```
     """
 
-    MUTABLE_META_ATTRIBUTES = [
+    MUTABLE_META_ATTRIBUTES = blocks.FieldBlock.MUTABLE_META_ATTRIBUTES + [
         "value_class",
         "tag_name",
     ]

@@ -1,10 +1,11 @@
 from typing import Tuple
 from django.template import library
+from django.utils.safestring import mark_safe
 from django.template import (
     TemplateSyntaxError,
 )
 
-from ..blocks import toolbar
+from globlocks.blocks import toolbar
 
 
 register = library.Library()
@@ -74,9 +75,6 @@ def toolbar_attributes(toolbar_value: toolbar.ToolbarValue, **kwargs) -> Tuple[s
     _valid_toolbar_value(toolbar_value)
 
     element: toolbar.ElementType = toolbar_value.create_element()
-    for k, *v in kwargs.items():
-        if all([val is not None for val in v]):
-            element.attrs.add(k, *v)
-
+    element = toolbar_value._generate_element(element, **kwargs)
     return element.generate()
 

@@ -1,8 +1,26 @@
-{% load wagtailcore_tags %}
-<div class="globlocks-block globlocks-title">
-    {% block tag %}
-        <{{ tagname }} {{ attributes|safe }}>
-            {{ text|safe }}
-        </{{ tagname }}>
-    {% endblock %}
-</div>
+{% extends "./base.html" %}
+{% load wagtailcore_tags globlocks.utils %}
+{% block content %}
+    {% if title %}
+        {% block title %}
+            <div class="globlocks-title">
+                {% block tag %}
+                    <{{ tagname }} {{ attributes|safe }}>
+                        {{ title|safe }}
+                    </{{ tagname }}>
+                {% endblock %}
+            </div>
+        {% endblock %}
+    {% endif %}
+    {% if subtitle %}
+        {% with tagname|heading:1 as subtitle_tag %}
+        {% block subtitle %}
+            <div class="globlocks-subtitle">
+                <{{ subtitle_tag }} {{ subtitle_attributes|safe }}>
+                    {{ subtitle|safe }}
+                </{{ subtitle_tag }}>
+            </div>
+        {% endblock %}
+        {% endwith %}
+    {% endif %}
+{% endblock %}

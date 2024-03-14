@@ -46,6 +46,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         context["button_icon"] = self.meta.icon
         context["full_size"] = self.meta.full
         context["absolute_position"] = self.meta.absolute_position
+        context["compact_view"] = self.meta.compact_view
         return context
 
     class Meta:
@@ -56,6 +57,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         button_label = _("Open Settings")
         hide_labels = False
         absolute_position = False
+        compact_view = False
         full=False
 
 
@@ -68,6 +70,7 @@ class BaseBlock(blocks.StructBlock):
         "block_classname",
         "hide_help_text",
         "hide_label",
+        "compact_view",
     ]
     STYLE_TEMPLATE_VAR = "styles"
     STYLE_ATTRIBUTES = [
@@ -85,6 +88,7 @@ class BaseBlock(blocks.StructBlock):
 
     class Meta:
         block_classname = "globlocks-block"
+        compact_view = False
         hide_help_text = False
         hide_label = False
 
@@ -145,6 +149,7 @@ class BaseBlock(blocks.StructBlock):
         context = super().get_form_context(value, prefix=prefix, errors=errors)
         context["hide_help_text"] = self.meta.hide_help_text
         context["hide_label"] = self.meta.hide_label
+        context["compact_view"] = self.meta.compact_view
         return context
 
     def get_context(self, value, parent_context=None):

@@ -38,7 +38,7 @@ def get_hooks(hook_name: str):
 _BLOCK_TUPLE = TypeVar("_BLOCK_TUPLE", bound=Tuple[Tuple[str, blocks.Block]])
 
 
-def make_block_tuple(local_blocks: Optional[_BLOCK_TUPLE] = None, **blocks: blocks.Block) -> Tuple[_BLOCK_TUPLE, _BLOCK_TUPLE]:
+def make_block_tuple(local_blocks: Optional[_BLOCK_TUPLE] = None, needs_initial: bool = False, **blocks: blocks.Block) -> Tuple[_BLOCK_TUPLE, _BLOCK_TUPLE]:
     """
         Helper function to create a tuple of blocks from a kwargs;
 
@@ -52,4 +52,13 @@ def make_block_tuple(local_blocks: Optional[_BLOCK_TUPLE] = None, **blocks: bloc
         local_blocks = ()
 
     local_blocks = tuple(local_blocks)
-    return local_blocks + tuple((k, v) for k, v in blocks.items()), initial
+
+    for k, v in blocks.items():
+        local_blocks += (
+            (k, v),
+        )
+
+    if needs_initial:
+        return local_blocks, initial
+    
+    return local_blocks

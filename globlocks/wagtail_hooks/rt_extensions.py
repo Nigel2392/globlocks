@@ -36,7 +36,7 @@ class AlignRightFeature(BaseAlignmentFeature):
 def register_word_counter(features):
 
     feature_name = 'word-counter'
-    features.default_features.append(feature_name)
+    # features.default_features.append(feature_name)
     features.register_editor_plugin(
         'draftail',
         feature_name,

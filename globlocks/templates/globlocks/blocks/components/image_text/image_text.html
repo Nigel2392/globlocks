@@ -1,0 +1,12 @@
+{% extends "globlocks/shared/blocks/base.html" %}
+
+{% load orderable_tags %}
+
+{% block classname %}globlocks-image-text{% endblock %}
+
+{% block content %}
+    {% for block in self.settings.ordering %}
+        {% position_of self.settings.ordering as position_of_block %}
+        {% include block with position_of=position_of_block %}
+    {% endfor %}
+{% endblock %}

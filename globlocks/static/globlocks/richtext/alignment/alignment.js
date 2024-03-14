@@ -19,7 +19,9 @@ class TextAlignment extends window.React.Component {
             });
             return button;
         };
-        return React.createElement('div', {},
+        return React.createElement('div', {
+                className: 'Draftail-ToolbarGroup',
+            },
             createButton(
                 this.props.alignmentTextLeft,
                 'left'
@@ -94,6 +96,8 @@ function TextAlignControl({ getEditorState, onChange }) {
     );
     const editorState = getEditorState();
 
+    console.log('TextAlignControl', editorState);
+
     return React.createElement(TextAlignment, {
         editorState: editorState,
         onComplete: onChange,
@@ -104,6 +108,7 @@ function TextAlignControl({ getEditorState, onChange }) {
 }
 
 // text-left, text-center, text-right (controls)
+console.log('Registering text-alignment');
 window.draftail.registerPlugin({
     type: 'text-alignment',
     inline: TextAlignControl,
@@ -112,6 +117,8 @@ window.draftail.registerPlugin({
 
 const blockStyleFn = (block) => {
     let alignment = 'left';
+
+    console.log('blockStyleFn', block);
 
     let data = block.getData();
     if (data.get('alignment')) {
@@ -132,18 +139,18 @@ const blockStyleFn = (block) => {
 };
 
 
+console.log('Registering blockStyleFn');
 const initEditorProxyTextAlign = new Proxy(window.draftail.initEditor, {
     apply: (target, thisArg, argumentsList) => {
-      // Get the target editor in the same way initEditor does and
-      // create a partially-applied AIControl component with the
-      // element passed as the `field` prop so we can access
-      // it later.
-      argumentsList[1].plugins = [{
-            type: 'text-alignment',
+        // Get the target editor in the same way initEditor does and
+        // create a partially-applied AIControl component with the
+        // element passed as the `field` prop so we can access
+        // it later.
+        argumentsList[1].plugins = [{
+            type: 'text-align',
             blockStyleFn: blockStyleFn,
         }];
       return Reflect.apply(target, thisArg, argumentsList);
     },
-  });
-  window.draftail.initEditor = initEditorProxyTextAlign;
-  
+});
+window.draftail.initEditor = initEditorProxyTextAlign;

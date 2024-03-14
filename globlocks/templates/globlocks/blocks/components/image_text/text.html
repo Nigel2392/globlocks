@@ -1,0 +1,15 @@
+{% extends "globlocks/shared/blocks/base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block classname %}globlocks-image-text-text {{position_of_block}}{% endblock %}
+
+{% block content %}
+
+    {% include "globlocks/shared/blocks/heading.html" with title=self.heading %}
+
+    <div class="image-text-text">
+        {{ self.text|richtext }}
+    </div>
+
+{% endblock %}

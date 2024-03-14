@@ -38,10 +38,10 @@ class BaseBlockTextConfiguration(AttributeConfiguration):
 
 class HeadingConfiguration(BaseBlockTextConfiguration):
     toolbar = toolbar.ToolbarBlock(
-        tag_name="h2",
         targets="text",
         required=False,
         label=_("Toolbar"),
+        tag_name="h2",
         tools=[
             "BOLD",
             "ITALIC",
@@ -65,10 +65,6 @@ class HeadingConfiguration(BaseBlockTextConfiguration):
         form_template = "globlocks/blocks/richtext/heading_settings_form.html"
         label_format = '{heading_level}'
 
-    def get_attributes(self, value, context=None):
-        attrs = super().get_attributes(value, context)
-        return attrs
-    
 class HeadingValue(blocks.StructValue):
     class Meta:
         icon = "title"
@@ -90,6 +86,7 @@ class HeadingElement(BaseBlock):
 
     class Meta:
         icon = "title"
+        group=_("Text")
         label = _("Heading")
         template = "globlocks/blocks/richtext/heading.html"
         form_template = "globlocks/blocks/richtext/text_and_settings_form.html"
@@ -122,9 +119,7 @@ class RichTextElementConfiguration(BaseBlockTextConfiguration):
 
 class RichTextElement(BaseBlock):
     always_add_features = [
-        'align-left',
-        'align-center',
-        'align-right',
+        'text-alignment',
         'word-counter',
     ]
     disallowed_features = [
@@ -161,7 +156,8 @@ class RichTextElement(BaseBlock):
 
     class Meta:
         icon = "doc-full"
-        label = _("Text")
+        group=_("Text")
+        label = _("Rich Text")
         template = "globlocks/blocks/richtext/richtext.html"
         form_template = "globlocks/blocks/richtext/text_and_settings_form.html"
         hide_help_text = True

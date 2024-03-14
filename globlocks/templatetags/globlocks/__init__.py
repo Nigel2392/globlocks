@@ -10,23 +10,7 @@ from globlocks.staticfiles import (
     globlocks_css as staticfiles_globlocks_css,
 )
 
-
-
-
 register = library.Library()
-
-
-@register.simple_tag(name="render_as_preview", takes_context=True)
-def render_as_preview(context, block, fail_silently=False, **kwargs):
-    try:
-        v = preview_of_block(block, context, fail_silently=fail_silently, **kwargs)
-        if v is None:
-            return ""
-        return v
-    except PreviewUnavailable:
-        return block
-
-
 
 
 def format_static_file(file):
@@ -47,6 +31,18 @@ def globlocks_js():
         else:
             s.append(f'<script src="{format_static_file(js)}"></script>')
     return mark_safe(f"\n{GLOBLOCKS_SCRIPT_INDENT}".join(s))
+
+
+
+@register.simple_tag(name="render_as_preview", takes_context=True)
+def render_as_preview(context, block, fail_silently=False, **kwargs):
+    try:
+        v = preview_of_block(block, context, fail_silently=fail_silently, **kwargs)
+        if v is None:
+            return ""
+        return v
+    except PreviewUnavailable:
+        return block
 
 
 @register.simple_tag(name="globlocks_css")

@@ -23,10 +23,10 @@ class Orderable:
         self.value = value
 
     def __str__(self):
-        return self.label
+        return str(self.label)
     
     def __html__(self):
-        return self.label
+        return str(self.label)
 
     def __repr__(self):
         return f"Orderable({self.label}, {self.value})"
@@ -54,7 +54,35 @@ class Orderable:
         )
 
 
-class OrderableFormField(forms.JSONField):
+def _if_call(func):
+    return func() if callable(func) else func
+
+
+class _OrderablePythonValueMixin:
+    def to_python(self, value):
+        value = super().to_python(value)
+        if value is None:
+            return value
+        
+        orderables = _if_call(self.orderables)
+        for i in range(len(value)):
+            value[i] = self.get_orderable(value[i], orderables)
+
+        return value
+        
+    def get_orderable(self, value, orderables):
+        if isinstance(value, Orderable):
+            return value
+        
+        for orderable in orderables:
+            if orderable.value == value:
+                return orderable
+            
+        return None
+
+
+
+class OrderableFormField(_OrderablePythonValueMixin, forms.JSONField):
     def __init__(self, orderables=None, *args, **kwargs):
         self.orderables = orderables
         kwargs["encoder"] = AutoJSONEncoder
@@ -64,14 +92,6 @@ class OrderableFormField(forms.JSONField):
         if isinstance(value, list):
             return json.dumps(value, cls=AutoJSONEncoder)
         return value
-
-    def to_python(self, value: Any) -> Any:
-        value = super().to_python(value)
-        return value
-    
-    # @property
-    # def widget(self):
-    #     return OrderableWidget(orderables=self.orderables, encoder=self.encoder)
 
 
 class OrderableField(models.JSONField):

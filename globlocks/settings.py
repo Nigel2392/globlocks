@@ -55,3 +55,18 @@ GLOBLOCKS_TOOLSTYLES_ADD_CLASSES = getattr(settings, "GLOBLOCKS_TOOLSTYLES_ADD_C
     The indent to be used for links/scripts when generated from the helper templatetag.
 """
 GLOBLOCKS_SCRIPT_INDENT = getattr(settings, "GLOBLOCKS_SCRIPT_INDENT", "        ")
+
+
+GLOBLOCKS_RICHTEXT_FEATURES = getattr(settings, "GLOBLOCKS_RICHTEXT_FEATURES", [
+    "bold", "italic", "ol", "ul", 
+    "blockquote", "mark", "link", "document-link", "image", 
+    'text-alignment', 'word-counter',
+])
+
+GLOBLOCKS_RICHTEXT_FEATURES_HEADINGS = getattr(settings, "GLOBLOCKS_RICHTEXT_FEATURES_HEADINGS", [
+    "h2", "h3", "h4", "h5", "bold", "italic", "ol", "ul", 
+    "blockquote", "mark", "link", "document-link", "image",
+    
+    'text-alignment', 'word-counter',
+])
+
