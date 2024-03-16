@@ -30,6 +30,9 @@ class Orderable:
 
     def __repr__(self):
         return f"Orderable({self.label}, {self.value})"
+    
+    def __iter__(self):
+        return iter([self.value])
 
     @property
     def name(self):

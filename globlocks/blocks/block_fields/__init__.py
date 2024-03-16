@@ -11,4 +11,7 @@ from .orderable_block import (
     OrderableBlock,
     Orderable,
 )
+from .justify import (
+    JustifyBlock,
+)
 from . import toolbar

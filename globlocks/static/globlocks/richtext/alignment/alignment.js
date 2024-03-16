@@ -146,10 +146,15 @@ const initEditorProxyTextAlign = new Proxy(window.draftail.initEditor, {
         // create a partially-applied AIControl component with the
         // element passed as the `field` prop so we can access
         // it later.
-        argumentsList[1].plugins = [{
+
+        if (!argumentsList[1].plugins) {
+            argumentsList[1].plugins = [];
+        }
+
+        argumentsList[1].plugins.push({
             type: 'text-align',
             blockStyleFn: blockStyleFn,
-        }];
+        });
       return Reflect.apply(target, thisArg, argumentsList);
     },
 });

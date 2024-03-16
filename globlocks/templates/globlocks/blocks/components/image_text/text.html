@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    {% include "globlocks/shared/blocks/heading.html" with title=self.heading %}
+    {% include "globlocks/shared/blocks/heading.html" with title=self.heading tagname="h2" %}
 
     <div class="image-text-text">
         {{ self.text|richtext }}

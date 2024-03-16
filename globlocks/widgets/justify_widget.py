@@ -1,5 +1,5 @@
 from django.forms import widgets
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 import json
 
@@ -20,8 +20,8 @@ class JustifyWidget(widgets.RadioSelect):
         super().__init__(attrs=attrs, choices=choices)
 
 
-    def create_option(self, *args, **kwargs): # noqa
-        option = super().create_option(*args, **kwargs)
+    def create_option(self, name, value, label, selected, index, subindex, attrs):
+        option = super().create_option(name, value, label, selected, index, subindex, attrs)
         value = option["value"]
         if value:
             if not value.startswith("text-"):

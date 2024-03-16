@@ -1,5 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.utils.html import strip_tags
 
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
@@ -64,5 +65,5 @@ class ImageTextBlock(TextBlock):
         compact_view = True
 
     def render_as_preview(self, value, context=None):
-        return mark_safe(f"<strong>{value['heading']}:</strong> {value['text']}\n")
+        return mark_safe(f"<strong>{value['heading']}:</strong> {strip_tags(value['text'])}\n")
 

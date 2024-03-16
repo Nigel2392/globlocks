@@ -92,7 +92,7 @@ class ToolbarBlock(blocks.FieldBlock):
         And in the template:
         ```django-template
         {# myapp/heading.html #}
-        {% load globlocks_.toolbar %}
+        {% load globlocks.toolbar %}
         {% apply_toolbar self.text self.settings.toolbar class="my extra class" %}
         ```
     """

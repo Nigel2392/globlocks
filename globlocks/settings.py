@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
+
 """
     Debug mode for the globlocks application.
     Means extra errors could be raised; more information logged etc.
@@ -57,12 +58,21 @@ GLOBLOCKS_TOOLSTYLES_ADD_CLASSES = getattr(settings, "GLOBLOCKS_TOOLSTYLES_ADD_C
 GLOBLOCKS_SCRIPT_INDENT = getattr(settings, "GLOBLOCKS_SCRIPT_INDENT", "        ")
 
 
+"""
+    Basic richtext features used throughout the application.
+    Only contains inline elements.
+"""
 GLOBLOCKS_RICHTEXT_FEATURES = getattr(settings, "GLOBLOCKS_RICHTEXT_FEATURES", [
     "bold", "italic", "ol", "ul", 
-    "blockquote", "mark", "link", "document-link", "image", 
+    "link", "document-link", "image", 
     'text-alignment', 'word-counter',
 ])
 
+
+"""
+    More advanced richtext features used throughout the application.
+    Contains block level elements.
+"""
 GLOBLOCKS_RICHTEXT_FEATURES_HEADINGS = getattr(settings, "GLOBLOCKS_RICHTEXT_FEATURES_HEADINGS", [
     "h2", "h3", "h4", "h5", "bold", "italic", "ol", "ul", 
     "blockquote", "mark", "link", "document-link", "image",
@@ -70,3 +80,13 @@ GLOBLOCKS_RICHTEXT_FEATURES_HEADINGS = getattr(settings, "GLOBLOCKS_RICHTEXT_FEA
     'text-alignment', 'word-counter',
 ])
 
+
+"""
+    This means you have to be careful with caches.
+    
+    Editors will see the hidden content, but the public will not.
+
+    If you have a cache that is shared between editors and the public,
+    you could end up with a situation where the public sees the hidden content.
+"""
+GLOBLOCKS_EDITORS_SEE_HIDDEN = getattr(settings, "GLOBLOCKS_EDITORS_SEE_HIDDEN", True)

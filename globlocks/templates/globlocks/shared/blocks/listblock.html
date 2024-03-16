@@ -1,5 +1,7 @@
-{% load wagtailcore_tags %}
 {% extends "./base.html" %}
+
+{% load wagtailcore_tags %}
+
 {% block classname %}globlocks-listblock{% if classname %} {{ classname }}{% endif %}{% endblock %}
 {% block content %}
     {% for block in blocks %}

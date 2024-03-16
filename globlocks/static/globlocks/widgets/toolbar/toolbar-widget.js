@@ -397,16 +397,6 @@ class ToolbarWidget {
             value = $(this.input).val()
         }
 
-        try {
-            value = JSON.parse(unescape(value));
-        } catch (e) {
-            value = null;
-        }
-
-        if (!value) {
-            value = {};
-        }
-
         /** @type {Array<string>} */
         this.registeredTools = tools;
         /** @type {Object<string, ToolbarTool>} */
@@ -452,6 +442,14 @@ class ToolbarWidget {
             button.addEventListener('click', function(e) {
                 this.updateGroup(toolObject);
             }.bind(this));
+
+            while (typeof value === 'string' && value.length > 0) {
+                try {
+                    value = JSON.parse(value);
+                } catch (e) {
+                    value = null;
+                }
+            }
 
             if (tool in value) {
                 toolObject.initialize(this, button, this.targets, value[tool]);

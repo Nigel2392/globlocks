@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags %}
 <div class="justify-widget-option">
-    <label class="justify-widget-label" {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
+    <label class="justify-widget-label" {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %} title="{{ widget.label }}">
         {% if widget.icon_name or widget.value %}
             <div class="justify-widget-icon">
                 {% icon name=widget.icon_name|default:widget.value %}
