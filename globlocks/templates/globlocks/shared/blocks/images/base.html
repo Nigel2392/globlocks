@@ -1,0 +1,9 @@
+{% extends "../base.html" %}
+{% load wagtailimages_tags %}
+{% block classname %}globlocks-image {{ classname }}{% endblock %}
+{% block content %}
+    {% block img %}
+        {% image image original as img %}
+        <img src="{{ img.url }}" alt="{{ title|default:image.title }}">
+    {% endblock %}
+{% endblock %}

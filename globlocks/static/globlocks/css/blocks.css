@@ -1,4 +1,5 @@
 :root {
+    --globlocks-min-container-margin: 0.5em;
     --globlocks-container-margin: 15%;
     --globlocks-text-color: #333333;
     --globlocks-primary-hue: 254.3;
@@ -57,38 +58,76 @@
         font-size: 1em;
     }
 
-    .globlocks-container-margin {
+    & .globlocks-container-margin {
         margin-left: var(--globlocks-container-margin);
         margin-right: var(--globlocks-container-margin);
     }
-    .globlocks-container-padding {
+    & .globlocks-container-padding {
         padding-left: var(--globlocks-container-margin);
         padding-right: var(--globlocks-container-margin);
+    }
+
+    & .globlocks-img-full {
+        max-width: 100%;
+        height: auto;
+    }
+    & .globlocks-img-large {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+    }
+    & .globlocks-img-medium {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+    }
+    & .globlocks-img-small {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+    }
+
+    & img.left {
+        float: left;
+        margin: 0 1em 1em 0;
+    }
+    & img.right {
+        float: right;
+        margin: 0 0 1em 1em;
+    }
+    & img.center {
+        display: block;
+        margin: 0 auto;
+    }
+    & img.full-width {
+        width: 100%;
+        height: auto;
+    
     }
 }
 
 @media (max-width: 576px) {
     .globlocks-styles.globlocks-container-margin,
     .globlocks-styles .globlocks-container-margin {
-        margin-left: 0;
-        margin-right: 0;
+        margin-left: var(--globlocks-min-container-margin);
+        margin-right: var(--globlocks-min-container-margin);
     }
     .globlocks-styles.globlocks-container-padding,
     .globlocks-styles .globlocks-container-padding {
-        padding-left: 0;
-        padding-right: 0;
+        padding-left: var(--globlocks-min-container-margin);
+        padding-right: var(--globlocks-min-container-margin);
     }
 }
 @media (min-width: 576px) {
     .globlocks-styles.globlocks-container-margin,
     .globlocks-styles .globlocks-container-margin {
-        margin-left: 0;
-        margin-right: 0;
+        margin-left: var(--globlocks-min-container-margin);
+        margin-right: var(--globlocks-min-container-margin);
     }
     .globlocks-styles.globlocks-container-padding,
     .globlocks-styles .globlocks-container-padding {
-        padding-left: 0;
-        padding-right: 0;
+        padding-left: var(--globlocks-min-container-margin);
+        padding-right: var(--globlocks-min-container-margin);
     }
 }
 @media (min-width: 768px) {

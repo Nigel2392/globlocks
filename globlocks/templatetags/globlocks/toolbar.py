@@ -53,8 +53,8 @@ def apply_toolbar(target_value: str, toolbar_value: toolbar.ToolbarValue, **kwar
     for k, *v in kwargs.items():
         if all([val is not None for val in v]):
             element.attrs.add(k, *v)
-    e = toolbar_value.render_element(element, target_value)
-    print(e)
+    return toolbar_value.render_element(element, target_value)
+
 
 @register.simple_tag(name="toolbar_attributes")
 def toolbar_attributes(toolbar_value: toolbar.ToolbarValue, **kwargs) -> Tuple[str, toolbar.Attributes]:
