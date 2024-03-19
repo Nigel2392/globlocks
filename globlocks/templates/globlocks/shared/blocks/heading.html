@@ -1,5 +1,6 @@
 {% extends "./base.html" %}
 {% load wagtailcore_tags globlocks.utils %}
+{% block classname %}{{ classname }}{% endblock %}
 {% block content %}
     {% if title %}
         {% block title %}

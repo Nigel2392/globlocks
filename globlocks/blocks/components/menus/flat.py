@@ -56,6 +56,7 @@ class FlatMenuItem(blocks.StructBlock):
         icon = "list-ul"
         label = _("Menu Item")
         label_format = _("Menu Item: {label}")
+        template = "globlocks/blocks/components/menus/flat/item.html"
 
 
 class FlatMenuConfiguration(ToggleableConfig, TemplateBlockConfiguration):
@@ -100,5 +101,5 @@ class FlatMenu(ToggleableBlock, TemplateBlock):
         group=_("Menus")
         label = _("Flat Menu")
         label_format = _("Flat Menu: {title}")
-        template = "globlocks/blocks/components/menus/flat.html"
+        template = "globlocks/blocks/components/menus/vertical.html"
 

@@ -1,0 +1,14 @@
+{% load wagtailimages_tags globlocks %}
+<div class="globlocks-menu-item">
+    <a href="{% link self.link %}" class="globlocks-menu-item__link">
+        {% if show_image and self.image %}
+            <div class="globlocks-menu-item__link__image">
+                {% image self.image original as self_image %}
+                <img src="{{ self_image.url }}" alt="{{ self.title }}">
+            </div>
+        {% endif %}
+        <div class="globlocks-menu-item__link__title">
+            {{ self.link.link_text }}
+        </div>
+    </a>
+</div>

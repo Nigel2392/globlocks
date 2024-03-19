@@ -447,8 +447,12 @@ class ToolbarWidget {
                 try {
                     value = JSON.parse(value);
                 } catch (e) {
-                    value = null;
+                    value = {};
                 }
+            }
+
+            if (value === null) {
+                value = {};
             }
 
             if (tool in value) {

@@ -11,6 +11,7 @@
 
 globlocks_css = [
     "globlocks/css/blocks.css",
+    "globlocks/css/bootstrap.css",
 ]
 
 globlocks_js = [

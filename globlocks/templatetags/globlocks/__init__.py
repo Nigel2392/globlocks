@@ -51,26 +51,45 @@ def render_as_preview(context, block, fail_silently=False, **kwargs):
         return block
 
 
-@register.simple_tag(name="globlocks_js")
-def globlocks_js():
-    s = []
-    for js in staticfiles_globlocks_js:
-        if hasattr(js, "__html__"):
-            s.append(js.__html__())
-        else:
-            s.append(f'<script src="{format_static_file(js)}"></script>')
-    return mark_safe(f"\n{GLOBLOCKS_SCRIPT_INDENT}".join(s))
+def base_script_tag(files_or_hook, hook_name, format_fn) -> callable:
+    def _tag(context):
+        request = context.get("request", None)
+        
+        s = []
 
+        files = files_or_hook
+        files = (
+            *files,
+            *get_hooks(hook_name),
+        )
 
-@register.simple_tag(name="globlocks_css")
-def globlocks_css():
-    s = []
-    for css in staticfiles_globlocks_css:
-        if hasattr(css, "__html__"):
-            s.append(css.__html__())
-        else:
-            s.append(f'<link rel="stylesheet" href="{format_static_file(css)}">')
-    return mark_safe(f"\n{GLOBLOCKS_SCRIPT_INDENT}".join(s))
+        for file in files:
+            if callable(file):
+                file = file(request, context)
+
+            if hasattr(file, "__html__"):
+                s.append(file.__html__())
+            else:
+                s.append(format_fn(file))
+
+        return mark_safe(f"\n{GLOBLOCKS_SCRIPT_INDENT}".join(s))
+    return _tag
+
+def format_script_tag(file):
+    return f'<script src="{format_static_file(file)}"></script>'
+
+def format_css_tag(file):
+    return f'<link rel="stylesheet" href="{format_static_file(file)}">'
+
+globlocks_js_hook_name = "globlocks_js"
+register.simple_tag(name=globlocks_js_hook_name, takes_context=True)(
+    base_script_tag(staticfiles_globlocks_js, globlocks_js_hook_name, format_script_tag)
+)
+
+globlocks_css_hook_name = "globlocks_css"
+register.simple_tag(name=globlocks_css_hook_name, takes_context=True)(
+    base_script_tag(staticfiles_globlocks_css, globlocks_css_hook_name, format_css_tag)
+)
 
 
 HAS_PROTO_RE = re.compile(r"^[a-zA-Z0-9]+://")

@@ -27,7 +27,7 @@
             </div>
         </div>
     {% else %}
-        <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-5 col-xl-4 globlocks-link-form unstacked">
+        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-5 globlocks-link-form unstacked">
             <div class="link-form-radios">
                 {% include "wagtailadmin/block_forms/field.html" with child=children.choice hide_label=True %}
                 <div class="link-form-fields">
@@ -35,6 +35,6 @@
                 </div>
             </div>
         </div>
-        {% include "wagtailadmin/block_forms/base_block_field.html" with col_size=12 col_xs=12 col_sm=6 col_md=6 col_lg=7 col_xl=8 child=children.text hide_label=False %}
+        {% include "wagtailadmin/block_forms/base_block_field.html" with col_size=12 col_xs=12 col_sm=12 col_md=12 col_lg=6 col_xl=7 child=children.text hide_label=False %}
     {% endif %}
 {% endblock %}

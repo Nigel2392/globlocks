@@ -1,0 +1,19 @@
+{% extends "globlocks/shared/blocks/base.html" %}
+
+{% load globlocks wagtailcore_tags %}
+
+{% block classname %}globlocks-listblock globlocks-menu globlocks-menu-{% block direction %}{% endblock %} text-{{ self.settings.alignment }}{% endblock %}
+
+{% block block_attributes %}style="--item-count:{{ self.items|length }};"{% endblock %}
+
+{% block content %}
+    {% block_fragment as menu_items %}
+        
+    {% endblock_fragment %}
+    <div class="globlocks-menu__header__wrapper">
+        {% include "globlocks/shared/blocks/heading.html" with tagname="h2" classname="globlocks-menu__header" title=self.title subtitle=self.subtitle|richtext %}
+    </div>
+    <div class="globlocks-menu__items {% block items_class %}{% endblock %}">
+        {% for item in self.items %}{% block menu_items %}{% include_block item with block_id=item.id %}{% endblock %}{% endfor %}
+    </div>
+{% endblock %}

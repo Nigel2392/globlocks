@@ -1,0 +1,15 @@
+{% extends "./menu.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block direction %}horizontal{% endblock %}
+
+{% block items_class %}row{% endblock %}
+
+{% block menu_items %}
+<div class="col-12 col-md-3">
+    {% with show_image=True %}
+    {{ block.super }}
+    {% endwith %}
+</div>
+{% endblock %}

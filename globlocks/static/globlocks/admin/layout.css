@@ -17,6 +17,13 @@
   /* padding: 0 0.625rem; */
 /* } */
 
+.goodadvice-collapsible [data-comment-add],
+.globlocks-link-form [data-comment-add],
+[data-comment-add].hide-comments,
+.hide-comments [data-comment-add] {
+  display: none;
+}
+
 .Draftail-Editor.Draftail-Editor :focus {
   outline: none !important;
 }
@@ -188,9 +195,9 @@ div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.gooda
   /*  */
 /* } */
 
-.row .w-field__comment-button {
-    inset-inline-end: -1.5rem;
-}
+/* .row .w-field__comment-button { */
+    /* inset-inline-end: -1.5rem; */
+/* } */
 
 .row .w-field__wrapper {
   padding: 0;
@@ -307,9 +314,8 @@ div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.gooda
 }
 .w-field__input .link-form-radios label:has(input[type="radio"]:checked) {
   font-weight: bold;
-  font-size: 1em;
 }
-.w-field__input .link-form-radios button {
+.w-field__input .link-form-radios .unchosen [data-chooser-action-choose] {
   padding: 0.275em;
 }
 
