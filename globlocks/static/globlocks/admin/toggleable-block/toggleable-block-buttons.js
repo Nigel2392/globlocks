@@ -104,8 +104,10 @@ class ToggleableBlockIsShownButton extends window.globlocks.showableBlockButtons
             )
         });
         
-        if (this.settings.childBlocks.length > 1) {
-            this.shownObj.element.style.display = 'none';
+        const childBlockKeys = Object.keys(settings.childBlocks);
+        if (childBlockKeys.length > 1) {
+            let container = $(this.shownObj.element).closest('[data-contentpath]');
+            container.css('display', 'none');
         }
     }
 
@@ -133,8 +135,7 @@ class ToggleableBlockIsShownButton extends window.globlocks.showableBlockButtons
     }
     
     show() {
-        this.element.innerText = this.def
-            .replaceText(this.block, this.opts.translations.hideText);
+        this.element.innerText = this.opts.translations.hideText;
 
         this.element.classList.remove('warning');
         this.element.classList.remove('danger');
@@ -143,8 +144,7 @@ class ToggleableBlockIsShownButton extends window.globlocks.showableBlockButtons
     }
 
     hide() {
-        this.element.innerText = this.def
-            .replaceText(this.block, this.opts.translations.showText);
+        this.element.innerText = this.opts.translations.showText;
 
         this.element.classList.remove('success');
         this.element.classList.remove('warning');
@@ -289,7 +289,9 @@ class DateFromButton extends DateFromToBaseButton {
             return this.dateInput;
         }
         const inputDef = this.settings.childBlocks.hide_before_date;
-        inputDef.element.style.display = 'none';
+        let container = $(inputDef.element).closest('[data-contentpath]');
+        container.css('display', 'none');
+
         const inputId = inputDef.idForLabel;
         const input = document.getElementById(inputId);
         return input;
@@ -310,7 +312,9 @@ class DateToButton extends DateFromToBaseButton {
             return this.dateInput;
         }
         const inputDef = this.settings.childBlocks.hide_after_date;
-        inputDef.element.style.display = 'none';
+        let container = $(inputDef.element).closest('[data-contentpath]');
+        container.css('display', 'none');
+
         const inputId = inputDef.idForLabel;
         const input = document.getElementById(inputId);
         return input;

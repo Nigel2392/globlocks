@@ -8,12 +8,12 @@ from ...util import (
     make_block_tuple,
 )
 from ..bases import (
-    ToggleShowableBlock,
+    ToggleableBlock,
 )
 
 
 
-class TextBlock(ToggleShowableBlock):
+class TextBlock(ToggleableBlock):
     """
         A block for text.
     """

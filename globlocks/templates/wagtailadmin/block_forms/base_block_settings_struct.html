@@ -1,6 +1,6 @@
 {% load wagtailadmin_tags i18n %}
 
-<div class="{{ classname }} goodadvice-collapsible{% if full_size %} full{%endif%} collapsed">
+<div class="{{ classname }} goodadvice-collapsible{% if full_size %} full{%endif%} collapsed{% if hide_block_button %} hidden{%endif%}">
     <button type="button" class="goodadvice-collapsible-button button button-small bicolor button--icon">
         <span class="icon-wrapper">
             {% icon name=button_icon|default:"cog" classname="icon icon-plus icon" %} 
@@ -14,10 +14,10 @@
     {% endif %}
     <div class="goodadvice-collapsible-target{% if absolute_position %} goodadvice-collapsible-absolute{%endif%}" style="display:none;">
         <span class="goodadvice-collapsible-close">&times;</span>
-        <div class="row">
+        <div class="row {% if block_definition.meta.no_row_padding %}nopad{% endif %}">
             {% block inner_children %}
                 {% for child in children.values %}
-                    {% include "./base_block_settings_field.html" with col_size=12 %}
+                    {% include "./base_block_settings_field.html" with col_size=12 hide_label=hide_labels %}
                 {% endfor %}
             {% endblock %}
         </div>

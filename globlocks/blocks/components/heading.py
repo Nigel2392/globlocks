@@ -4,12 +4,12 @@ from ..block_fields import (
     toolbar,
 )
 from ..bases import (
-    ToggleShowableConfiguration,
-    ToggleShowableBlock,
+    ToggleableConfig,
+    ToggleableBlock,
 )
 
 
-class HeadingConfiguration(ToggleShowableConfiguration):
+class HeadingConfiguration(ToggleableConfig):
     toolbar = toolbar.ToolbarBlock(
         targets=[
             "heading",
@@ -41,7 +41,7 @@ class HeadingConfiguration(ToggleShowableConfiguration):
         label_format = _("Heading Configuration")
         absolute_position = True
 
-class Heading(ToggleShowableBlock):
+class Heading(ToggleableBlock):
     advanced_settings_class = HeadingConfiguration
 
     heading = blocks.CharBlock(

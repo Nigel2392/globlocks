@@ -17,6 +17,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         "button_label",
         "hide_labels",
         "absolute_position",
+        "hide_block_button",
         "icon",
     ]
 
@@ -47,6 +48,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         context["full_size"] = self.meta.full
         context["absolute_position"] = self.meta.absolute_position
         context["compact_view"] = self.meta.compact_view
+        context["hide_block_button"] = self.meta.hide_block_button
         return context
 
     class Meta:
@@ -57,6 +59,7 @@ class BaseBlockConfiguration(blocks.StructBlock):
         button_label = _("Open Settings")
         hide_labels = False
         absolute_position = False
+        hide_block_button = False
         compact_view = False
         full=False
 

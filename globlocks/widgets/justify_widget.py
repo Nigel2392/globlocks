@@ -1,5 +1,8 @@
 from django.forms import widgets
 from django.utils.translation import gettext_lazy as _
+from ..choices import (
+    text_alignment_choices,
+)
 
 import json
 
@@ -8,11 +11,7 @@ class JustifyWidget(widgets.RadioSelect):
     template_name = "globlocks/widgets/justify-widget.html"
     option_template_name = "globlocks/widgets/justify-widget-option.html"
     option_inherits_attrs = False
-    default_choices = (
-        ("text-left", _("Left")),
-        ("text-center", _("Center")),
-        ("text-right", _("Right")),
-    )
+    default_choices = text_alignment_choices
 
     def __init__(self, attrs=None, choices=None, targets: list[str] = None):
         choices = choices or self.default_choices

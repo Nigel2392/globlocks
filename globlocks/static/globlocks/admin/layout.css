@@ -25,14 +25,14 @@
 }
 .Draftail-Editor.Draftail-Editor .public-DraftEditor-content,
 .Draftail-Editor.Draftail-Editor .public-DraftEditorPlaceholder-root {
-  padding: 0 0.325rem;
+  padding: 0.2rem 0.325rem;
 }
 .Draftail-Editor.Draftail-Editor .Draftail-Toolbar {
   padding: 0.1rem;
   border-bottom: 1px solid var(--w-color-border-field-default);
 }
 .Draftail-Editor.Draftail-Editor div[data-contents] > *[data-block] {
-  margin: 0.125rem 0;
+  margin: 0.525rem 0;
 }
 
 div[data-contentpath="settings"]:has(.goodadvice-collapsible) {
@@ -198,6 +198,125 @@ div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.gooda
 }
 .w-combobox__menu {
   scrollbar-gutter: stable;
+}
+
+.w-field--radio_select .w-field__input > * > * {
+  display: inline-block;
+  margin-right: 0.5em;
+  font-size: 0.9em;
+}
+.w-field__input:has(> input[type="url"]) {
+  position: relative;
+}
+.w-field__input:has(> input[type="url"])::after {
+  content: "URL";
+  position: absolute;
+  inset-inline-end: 0.5em;
+  inset-block-start: 0.5em;
+  color: var(--w-color-grey-200);
+  font-size: 0.8em;
+  pointer-events: none;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.w-field__input:has(> input[type="url"]:focus)::after {
+  content: "";
+}
+
+/* HIDDEN SETTINGS `hide_block_button` */
+.goodadvice-collapsible.hidden,
+.goodadvice-collapsible .hidden,
+.goodadvice-collapsible-parent.hidden,
+.goodadvice-collapsible-parent .hidden {
+  display: none;
+}
+
+/* HELP TEXT */
+.c-sf-help .help {
+  margin-bottom: 0.325rem;
+}
+
+
+/* LINK FORM */
+
+.link-form-radios {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+/* :not(.goodadvice-collapsible) .link-form-radios.link-form-radios { */
+  /* justify-content: space-between; */
+/* } */
+:not(.goodadvice-collapsible) .link-form-radios.link-form-radios .w-field__input {
+  margin-top: 0;
+}
+/* :not(.goodadvice-collapsible) .link-form-radios.link-form-radios .w-field__wrapper { */
+  /* margin-bottom: 0; */
+/* } */
+[data-contentpath="link"]:has(.globlocks-link-form):not(:has(.help)) .w-field__label {
+  margin-bottom: 0.5rem;
+}
+[data-contentpath="link"]:has(.globlocks-link-form):has(.help) .w-field__label {
+  margin-bottom: 0.325rem;
+}
+[data-contentpath="link"]:has(.globlocks-link-form) .help {
+  margin-bottom: 0.5rem;
+}
+[data-contentpath="link"]:has(.globlocks-link-form) .link-form-fields {
+  margin-top: 2px; /* I hate magic values. This makes the inputs align properly next to eachother. */
+}
+[data-contentpath="link"]:has(.globlocks-link-form) .link-form-fields .w-field {
+  display: flex;
+  flex-direction: column-reverse;
+}
+[data-contentpath="link"]:has(.globlocks-link-form) .link-form-fields [data-contentpath]:not(:has(input)) {
+
+}
+.globlocks-link-form ::placeholder {
+  font-size: 0.8em;
+  vertical-align: middle;
+}
+.globlocks-link-form.stacked input[type="text"],
+.globlocks-link-form.stacked input[type="email"],
+.globlocks-link-form.stacked input[type="url"] {
+  max-width: 400px;
+}
+.globlocks-link-form.stacked .w-field__input:has(> input[type="url"]) {
+  max-width: 400px;
+}
+
+.globlocks-link-form.unstacked .link-form-radios {
+  height: 100%;
+}
+.w-field__input .link-form-radios .w-field:has(.w-field__wrapper .w-field--model_choice_field button) {
+  align-self: center;
+}
+.w-field__input .link-form-radios label:has(input[type="radio"]) {
+  font-size: 0.8em;
+  margin-bottom: 0.1rem;
+}
+.w-field__input .link-form-radios input[type="radio"] {
+  width: 1rem;
+  height: 1rem;
+  margin-inline-end: 0.2rem;
+}
+.w-field__input .link-form-radios input[type="radio"]::before {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+.w-field__input .link-form-radios label:has(input[type="radio"]:checked) {
+  font-weight: bold;
+  font-size: 1em;
+}
+.w-field__input .link-form-radios button {
+  padding: 0.275em;
+}
+
+/* END LINK FORM */
+
+.row.nopad.nopad {
+  --bs-gutter-x: 0;
 }
 
 .noselect {

@@ -2,7 +2,12 @@ from wagtail import blocks
 from django.utils.translation import gettext_lazy as _
 from django.forms import ValidationError
 
-from .bases import BaseBlockConfiguration, BaseBlock
+from .baseblock import BaseBlockConfiguration, BaseBlock
+
+from conditional_field import (
+    classname as make_classname,
+    handler,
+)
 
 
 class TemplateBlockConfiguration(BaseBlockConfiguration):
@@ -26,7 +31,10 @@ class TemplateBlockConfiguration(BaseBlockConfiguration):
                     required=True,
                     label=_("Template"),
                     help_text=_("The template to use for rendering."),
-                    classname=classname,
+                    classname=make_classname(
+                        classname,
+                        handler("custom_template"),
+                    ),
                     translatable=False,
                 ),
             ),

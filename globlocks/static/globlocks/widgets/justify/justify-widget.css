@@ -40,16 +40,34 @@
 }
 input.text-left,
 textarea.text-left,
-.w-field[data-contentpath].text-left .public-DraftStyleDefault-ltr {
+[data-contentpath].text-left .public-DraftStyleDefault-ltr {
     text-align: left;
 }
 input.text-center,
 textarea.text-center,
-.w-field[data-contentpath].text-center .public-DraftStyleDefault-ltr {
+[data-contentpath].text-center .public-DraftStyleDefault-ltr {
     text-align: center;
 }
 input.text-right,
 textarea.text-right,
-.w-field[data-contentpath].text-right .public-DraftStyleDefault-ltr {
+[data-contentpath].text-right .public-DraftStyleDefault-ltr {
+    text-align: right;
+}
+input.left,
+textarea.left,
+[data-contentpath].left .public-DraftStyleDefault-ltr,
+.Draftail-Editor.left .public-DraftStyleDefault-ltr {
+    text-align: left;
+}
+input.center,
+textarea.center,
+[data-contentpath].center .public-DraftStyleDefault-ltr,
+.Draftail-Editor.center .public-DraftStyleDefault-ltr {
+    text-align: center;
+}
+input.right,
+textarea.right,
+[data-contentpath].right .public-DraftStyleDefault-ltr,
+.Draftail-Editor.right .public-DraftStyleDefault-ltr {
     text-align: right;
 }

@@ -1,0 +1,40 @@
+{% extends "wagtailadmin/block_forms/base_block.html" %}
+
+{% load wagtailadmin_tags globlocks.admin %}
+
+{% comment %} {% block help_text %}{% endblock %} {% endcomment %}
+
+{% block inner_children %}
+
+    {% fragment as form_fields %}
+        {% for feature in block_definition.features %}
+            {% get_from_mapping children feature as field %}
+            {% include "wagtailadmin/block_forms/field.html" with child=field hide_label=True %}
+        {% endfor %}
+    {% endfragment %}
+
+    {% if block_definition.meta.stacked %}
+        <div class="col-12 globlocks-link-form stacked">
+
+            <div class="link-form-radios">
+                {% include "wagtailadmin/block_forms/field.html" with child=children.choice hide_label=True %}
+            </div>
+
+            {% include "wagtailadmin/block_forms/field.html" with child=children.text hide_label=True %}
+            
+            <div class="link-form-fields">
+                {{ form_fields }}
+            </div>
+        </div>
+    {% else %}
+        <div class="col-12 col-xs-12 col-sm-6 col-md-6 col-lg-5 col-xl-4 globlocks-link-form unstacked">
+            <div class="link-form-radios">
+                {% include "wagtailadmin/block_forms/field.html" with child=children.choice hide_label=True %}
+                <div class="link-form-fields">
+                    {{ form_fields }}
+                </div>
+            </div>
+        </div>
+        {% include "wagtailadmin/block_forms/base_block_field.html" with col_size=12 col_xs=12 col_sm=6 col_md=6 col_lg=7 col_xl=8 child=children.text hide_label=False %}
+    {% endif %}
+{% endblock %}

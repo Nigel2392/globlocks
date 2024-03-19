@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import random
 
 from django import forms
 from django.http import HttpRequest
@@ -22,6 +23,15 @@ from .baseblock import BaseBlock, BaseBlockConfiguration
 from globlocks.settings import (
     GLOBLOCKS_EDITORS_SEE_HIDDEN,
 )
+
+
+_alphabet = "abcdefghijklmnopqrstuvwxyz"
+
+def rand_id():
+    return "".join(
+        random.choice(_alphabet)
+        for _ in range(8)
+    )
 
 
 class ToggleShowableButton:
@@ -58,7 +68,7 @@ class ToggleShowableButtonIsShown(ToggleShowableButton):
 
     def get_translations(self):
         return super().get_translations() | {
-            "showText": _("Show ({label})"),
+            "showText": _("Show"),
             "hideText": _("Hide"),
         }
     
@@ -112,7 +122,7 @@ class DateTimeToButton(DateFromToBaseBlock):
         return value > self.get_cmp()
     
 
-class ToggleShowableBlockConfigurationValue(blocks.StructValue):
+class ToggleableConfigValue(blocks.StructValue):
     def __init__(self, block, *args):
         super().__init__(block, *args)
         settings = self.get("settings", {})
@@ -121,7 +131,7 @@ class ToggleShowableBlockConfigurationValue(blocks.StructValue):
                 settings.get(button.name),
             )
 
-class ToggleShowableConfiguration(BaseBlockConfiguration):
+class ToggleableConfig(BaseBlockConfiguration):
     def __init__(self, local_blocks=None, buttons=None, *args, **kwargs):
         super().__init__(local_blocks, *args, **kwargs)
 
@@ -133,6 +143,12 @@ class ToggleShowableConfiguration(BaseBlockConfiguration):
             child_blocks[button.name] = button.block
 
         self.child_blocks = child_blocks | self.child_blocks
+        self.hide_block_button = len(self.child_blocks) == len(self.buttons)
+
+    def get_form_context(self, value, prefix="", errors=None):
+        return super().get_form_context(value, prefix, errors) | {
+            "hide_block_button": self.hide_block_button,
+        }
 
     class Meta:
         label = _("Configuration")
@@ -140,10 +156,10 @@ class ToggleShowableConfiguration(BaseBlockConfiguration):
         button_label = _("Open Settings")
 
 
-class ToggleShowableAdapter(StructBlockAdapter):
-    js_constructor = "globlocks.blocks.ToggleShowableBlock"
+class ToggleableAdapter(StructBlockAdapter):
+    js_constructor = "globlocks.blocks.ToggleableBlock"
 
-    def __init__(self, block: "ToggleShowableBlock") -> None:
+    def __init__(self, block: "ToggleableBlock") -> None:
         super().__init__()
         self.block = block
 
@@ -188,9 +204,9 @@ class ToggleShowableAdapter(StructBlockAdapter):
         return block_name, child_blocks, meta
 
 
-class ToggleShowableBlock(BaseBlock):
-    advanced_settings_class = ToggleShowableConfiguration
-    adapter_class = ToggleShowableAdapter
+class ToggleableBlock(BaseBlock):
+    advanced_settings_class = ToggleableConfig
+    adapter_class = ToggleableAdapter
     buttons: list[ToggleShowableButton] = [
         DateTimeFromButton(),
         DateTimeToButton(),
@@ -199,8 +215,7 @@ class ToggleShowableBlock(BaseBlock):
 
     class Meta:
         icon = "arrow-up"
-        label = _("Toggle Showable")
-        show_text = _("Show ({label})")
+        show_text = _("Show")
         hide_text = _("Hide")
 
     def __init__(self, local_blocks=None, buttons=None, **kwargs):
@@ -251,10 +266,12 @@ class ToggleShowableBlock(BaseBlock):
                 title = self.hidden_editor_title(value, context)
                 label = self.hidden_editor_label(value, context)
                 preview = self.hidden_editor_preview(value, context)
+                id = rand_id()
+                _js = f"javascript:(() => {{{id}.remove(); return void(0)}})()"
 
                 # Default values, always shown
                 s = [
-                    "<div class='globlocks-toggleable-block'>\n",
+                    f"<div class='globlocks-toggleable-block' id=\"{id}\">\n",
                     f"    <h2 class=\"mb-1\">{title}</h2>\n",
                     f"    <h3 class=\"mb-1\">({label})</h3>\n",
                 ]
@@ -272,7 +289,13 @@ class ToggleShowableBlock(BaseBlock):
                 )
                 if "block_id" in context:
                     edit_url += f"#block-{context['block_id']}-section"
-                s.append(f"    <a href=\"{edit_url}\" class=\"globlocks-toggleable-block-btn\">{str(_('Edit'))}</a>\n")
+
+                s.append(
+                    f"    <a href=\"{edit_url}\" class=\"globlocks-toggleable-block-btn\">{str(_('Edit'))}</a>\n"
+                )
+                s.append(
+                    f"    <a href=\"{_js}\" class=\"globlocks-toggleable-block-btn\">{str(_('Close'))}</a>\n"
+                )
 
                 # Close container
                 s.append("</div>")
@@ -316,5 +339,5 @@ class ToggleShowableBlock(BaseBlock):
     
 
 
-ToggleShowableBlock.register_adapter()
+ToggleableBlock.register_adapter()
 

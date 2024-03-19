@@ -1,7 +1,16 @@
+from typing import Any, Union
 from django import template
+from django.http import HttpRequest
 from django.template import library
 from django.utils.safestring import mark_safe
 from django.templatetags.static import static
+
+from wagtail.models import Page
+from wagtail.documents.models import AbstractDocument
+from wagtail.images.models import (
+    AbstractImage,
+    AbstractRendition,
+)
 
 from globlocks.preview import PreviewUnavailable, preview_of_block
 from globlocks.settings import GLOBLOCKS_SCRIPT_INDENT, GLOBLOCKS_DEBUG
@@ -9,6 +18,15 @@ from globlocks.staticfiles import (
     globlocks_js as staticfiles_globlocks_js,
     globlocks_css as staticfiles_globlocks_css,
 )
+from globlocks.util import (
+    get_hooks,
+)
+from globlocks.blocks import (
+    components,
+)
+
+import re
+
 
 register = library.Library()
 
@@ -22,18 +40,6 @@ def format_static_file(file):
     return static(file)
 
 
-@register.simple_tag(name="globlocks_js")
-def globlocks_js():
-    s = []
-    for js in staticfiles_globlocks_js:
-        if hasattr(js, "__html__"):
-            s.append(js.__html__())
-        else:
-            s.append(f'<script src="{format_static_file(js)}"></script>')
-    return mark_safe(f"\n{GLOBLOCKS_SCRIPT_INDENT}".join(s))
-
-
-
 @register.simple_tag(name="render_as_preview", takes_context=True)
 def render_as_preview(context, block, fail_silently=False, **kwargs):
     try:
@@ -43,6 +49,17 @@ def render_as_preview(context, block, fail_silently=False, **kwargs):
         return v
     except PreviewUnavailable:
         return block
+
+
+@register.simple_tag(name="globlocks_js")
+def globlocks_js():
+    s = []
+    for js in staticfiles_globlocks_js:
+        if hasattr(js, "__html__"):
+            s.append(js.__html__())
+        else:
+            s.append(f'<script src="{format_static_file(js)}"></script>')
+    return mark_safe(f"\n{GLOBLOCKS_SCRIPT_INDENT}".join(s))
 
 
 @register.simple_tag(name="globlocks_css")
@@ -56,9 +73,60 @@ def globlocks_css():
     return mark_safe(f"\n{GLOBLOCKS_SCRIPT_INDENT}".join(s))
 
 
+HAS_PROTO_RE = re.compile(r"^[a-zA-Z0-9]+://")
+POSSIBLE_LINK_TYPES = Union[
+    components.LinkValue,
+    Page, AbstractDocument,
+    str, Any,
+]
+
+
+@register.simple_tag(name="link", takes_context=True)
+def do_link(context, value: POSSIBLE_LINK_TYPES, full: bool = False) -> str:
+    request: HttpRequest = context.get("request", None)
+
+    if isinstance(value, components.LinkValue):
+        return value.get_url(request, full=full)
+
+    elif isinstance(value, Page):
+        if full:
+            return value.get_full_url(request)
+        return value.get_url(request)
+
+    elif isinstance(value, AbstractImage):
+        rendition: AbstractRendition = value.get_rendition("original")
+        if full:
+            return request.build_absolute_uri(rendition.url)
+        return rendition.url
+    
+    elif hasattr(value, "get_absolute_url"):
+        return value.get_absolute_url(request)
+    
+    elif hasattr(value, "url"):
+        if full:
+            return request.build_absolute_uri(value.url)
+        return value.url
+
+    elif isinstance(value, str):
+        if full and not any([
+            value.startswith("//"),
+            HAS_PROTO_RE.match(value),
+        ]):
+            return request.build_absolute_uri(value)
+
+        return value
+
+    for hook in get_hooks("generate_link"):
+        result = hook(value, context, full=full)
+        if result:
+            return result
+        
+    return value
+
+
 class FragmentNode(template.Node):
     """
-        This comes from wagtail.admin.templatetags.wagtailadmin_tags
+        This generously comes from wagtail.admin.templatetags.wagtailadmin_tags
     """
 
     def __init__(self, nodelist, target_var, stripped=False):

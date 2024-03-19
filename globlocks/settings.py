@@ -63,7 +63,7 @@ GLOBLOCKS_SCRIPT_INDENT = getattr(settings, "GLOBLOCKS_SCRIPT_INDENT", "        
     Only contains inline elements.
 """
 GLOBLOCKS_RICHTEXT_FEATURES = getattr(settings, "GLOBLOCKS_RICHTEXT_FEATURES", [
-    "bold", "italic", "ol", "ul", 
+    "bold", "italic",
     "link", "document-link", "image", 
     'text-alignment', 'word-counter',
 ])

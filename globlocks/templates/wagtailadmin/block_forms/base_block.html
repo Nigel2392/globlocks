@@ -1,5 +1,4 @@
 {% load wagtailadmin_tags  %}
-
 <div class="goodadvice-collapsible-parent{% if compact_view %} goodadvice-compact{% endif %} {{ classname }}">
     {% block help_text %}
         {% if help_text and not hide_help_text %}
@@ -12,9 +11,11 @@
         {% endif %}
     {% endblock help_text %}
         
-    {% block inner_children %}
-        {% for child in children.values %}
-            {% include "./base_block_field.html" %}
-        {% endfor %}
-    {% endblock inner_children %}
+     <div class="row {% if block_definition.meta.no_row_padding %}nopad{% endif %}">
+        {% block inner_children %}
+            {% for child in children.values %}
+                {% include "./base_block_field.html" %}
+            {% endfor %}
+        {% endblock inner_children %}
+    </div>
 </div>

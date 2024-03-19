@@ -91,9 +91,13 @@ class ToggleableBlockDefinition extends window.wagtailStreamField.blocks.StructB
             initialError,
         );
 
+        this.textOverlay = document.createElement('div');
+        this.textOverlay.classList.add('overlaying', 'globlocks-showable-block-text-overlay');
+        block.container[0].appendChild(this.textOverlay);
+
         const settings = block.childBlocks.settings;
         const buttonWrapper = document.createElement('div');
-        buttonWrapper.classList.add('globlocks-showable-block-buttons');
+        buttonWrapper.classList.add('overlaying', 'globlocks-showable-block-buttons');
         block.container[0].appendChild(buttonWrapper);
         block.showableButtons = {};
 
@@ -182,6 +186,8 @@ class ToggleableBlockDefinition extends window.wagtailStreamField.blocks.StructB
             let button = block.showableButtons[buttonKey];
             button.hide();
         }
+
+        this.textOverlay.innerText = block.getTextLabel();
     }
 
     replaceText(block, text) {
@@ -189,7 +195,7 @@ class ToggleableBlockDefinition extends window.wagtailStreamField.blocks.StructB
     }
 }
 
-window.telepath.register('globlocks.blocks.ToggleShowableBlock', ToggleableBlockDefinition);
+window.telepath.register('globlocks.blocks.ToggleableBlock', ToggleableBlockDefinition);
 
 
 if (!window.globlocks) {

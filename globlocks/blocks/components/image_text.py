@@ -14,6 +14,8 @@ from ..block_fields import (
     Orderable,
 )
 
+
+
 class ImageTextBlockConfiguration(TextBlock.advanced_settings_class):
 
     ordering = OrderableBlock(
@@ -37,7 +39,7 @@ class ImageTextBlockConfiguration(TextBlock.advanced_settings_class):
         label = _("Layout Settings")
         button_label = _("Open Layout Settings")
         label_format = _("Image Text Layout Settings")
-        hide_labels = True
+        hide_labels = False
         absolute_position = True
         icon = "resubmit"
 
@@ -56,10 +58,11 @@ class ImageTextBlock(TextBlock):
         help_text=_("The heading above the text."),
     )
 
+
     class Meta:
         label = _("Image and Text")
         label_format = _("Image / Text: {heading} {image}")
-        group = _("Image")
+        group = _("Images")
         template = "globlocks/blocks/components/image_text/image_text.html"
         form_template = "globlocks/blocks/components/image_text/image_text_form.html"
         compact_view = True

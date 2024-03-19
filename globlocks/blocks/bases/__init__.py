@@ -1,11 +1,18 @@
 from .baseblock import (
     BaseConfigurableBlock,
     BaseConfigurableBlockMeta,
-    BaseBlockConfiguration,
+    BaseBlockConfiguration,\
     BaseBlock,
     AttributeConfiguration,
 )
+from .template import (
+    TemplateBlockConfiguration,
+    TemplateBlock,
+)
 from .visibility import (
-    ToggleShowableConfiguration,
-    ToggleShowableBlock,
+    ToggleableConfigValue,
+    ToggleableConfig,
+    ToggleableAdapter,
+    ToggleShowableButton,
+    ToggleableBlock,
 )
