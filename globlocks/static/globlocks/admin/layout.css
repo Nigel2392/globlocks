@@ -1219,3 +1219,8 @@ div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.gooda
 .pr-5 {
   padding-right: 2.5rem;
 }
+.color-input-widget {
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+}

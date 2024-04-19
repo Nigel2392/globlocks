@@ -72,12 +72,7 @@ class ColorInputWidget {
         });
         this.pickr.on('init', instance => {
             let hexColor = this.pickr.getColor().toHEXA().toString()
-            hexColor = hexColor.substring(0, hexColor.length - 2)
-            this.textInput.style.backgroundColor = hexColor;
-            
-            hexColor = hexColor.replace("#", "")
-            hexColor = invertColor(hexColor)
-            this.textInput.style.color = "#" + hexColor;
+            this.setState(hexColor);
         })
     }
     handleUpdate(evt) {

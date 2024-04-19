@@ -88,12 +88,23 @@ class TextAlignment extends window.React.Component {
     }
 }
 
+
 function TextAlignControl({ getEditorState, onChange }) {
     // For script definition see
     // wagtail_hooks/rt_extensions.py
-    const alignments_i18n = JSON.parse(
-        document.getElementById('globlocks-text-alignment-i18n').textContent,
-    );
+    const translationData = document.getElementById('globlocks-text-alignment-i18n')
+    let alignments_i18n;
+    if (translationData) {
+        alignments_i18n = JSON.parse(
+            translationData.textContent,
+        );
+    } else {
+        alignments_i18n = {
+            left: "Left",
+            center: "Center",
+            right: "Right",
+        }
+    }
     const editorState = getEditorState();
 
     return React.createElement(TextAlignment, {
@@ -104,6 +115,7 @@ function TextAlignControl({ getEditorState, onChange }) {
         alignmentTextRight: alignments_i18n['right'],
     });
 }
+
 
 // text-left, text-center, text-right (controls)
 window.draftail.registerPlugin({
