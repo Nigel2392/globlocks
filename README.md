@@ -41,3 +41,30 @@ Quick start
    ]
    ```
 2. ...
+
+## Richtext Alignment
+
+`globlocks` has a richtext feature for text alignment; without the limits that feature would normally impose.
+
+*Normally* - headings would not be able to get aligned. **This is a problem.**
+
+Luckily, we have the solution! *And you can use it too!*
+
+**To add the alignment features to your richtext**
+
+1. Follow the installation steps for `globlocks`.
+2. Add `text-alignment` to your richtext features. (it is included in default features)
+
+To align it on the frontend too; add the following CSS:
+
+```css
+.text-left {
+    text-align: left;
+}
+.text-center{
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+```
