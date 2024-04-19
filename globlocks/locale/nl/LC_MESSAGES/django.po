@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 00:26+0100\n"
+"POT-Creation-Date: 2024-04-10 22:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,117 +17,423 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: .\application\globlocks\blocks\bases.py:51
+
+#: .\tester\globlocks\blocks\bases\baseblock.py:58
 msgid "Configure"
 msgstr "Configureren"
 
-#: .\application\globlocks\blocks\bases.py:52
+#: .\tester\globlocks\blocks\bases\baseblock.py:59
+#: .\tester\globlocks\blocks\bases\visibility.py:156
+#: .\tester\globlocks\blocks\components\heading.py:40
+#: .\tester\globlocks\blocks\components\image.py:32
 msgid "Open Settings"
 msgstr "Open Instellingen"
 
-#: .\application\globlocks\blocks\richtext.py:19
-msgid "Class Name"
-msgstr "Klasse Naam"
-
-#: .\application\globlocks\blocks\richtext.py:24
-msgid "Background Color"
-msgstr "Achtergrondkleur"
-
-#: .\application\globlocks\blocks\richtext.py:29
-msgid "Text Color"
-msgstr "Tekstkleur"
-
-#: .\application\globlocks\blocks\richtext.py:52
-msgid "H2"
-msgstr "H2"
-
-#: .\application\globlocks\blocks\richtext.py:53
-msgid "H3"
-msgstr "H3"
-
-#: .\application\globlocks\blocks\richtext.py:54
-msgid "H4"
-msgstr "H4"
-
-#: .\application\globlocks\blocks\richtext.py:55
-msgid "H5"
-msgstr "H5"
-
-#: .\application\globlocks\blocks\richtext.py:56
-msgid "H6"
-msgstr "H6"
-
-#: .\application\globlocks\blocks\richtext.py:61
-msgid "Left"
-msgstr "Links"
-
-#: .\application\globlocks\blocks\richtext.py:62
-msgid "Center"
-msgstr "Midden"
-
-#: .\application\globlocks\blocks\richtext.py:63
-msgid "Right"
-msgstr "Rechts"
-
-#: .\application\globlocks\blocks\richtext.py:67
-msgid "Align"
-msgstr "Uitlijnen"
-
-#: .\application\globlocks\blocks\richtext.py:85
-#: .\application\globlocks\blocks\richtext.py:104
-msgid "Heading"
-msgstr "Kop"
-
-#: .\application\globlocks\blocks\richtext.py:86
-msgid "Heading Settings"
-msgstr "Kop Instellingen"
-
-#: .\application\globlocks\blocks\richtext.py:98
-#: .\application\globlocks\blocks\richtext.py:143
-#: .\application\globlocks\blocks\richtext.py:150
-msgid "Text"
-msgstr "Tekst"
-
-#: .\application\globlocks\blocks\richtext.py:99
-msgid "The text to be displayed in the heading."
-msgstr "De tekst die getoond moet worden in de kop."
-
-#: .\application\globlocks\blocks\richtext.py:171
-msgid "Text Blocks"
-msgstr "Tekst Blokken"
-
-#: .\application\globlocks\blocks\richtext.py:182
-msgid "Rich Text"
-msgstr "Rijke Tekst"
-
-#: .\application\globlocks\blocks\template.py:27
+#: .\tester\globlocks\blocks\bases\template.py:32
 msgid "Template"
 msgstr "Sjabloon"
 
-#: .\application\globlocks\blocks\template.py:28
+#: .\tester\globlocks\blocks\bases\template.py:33
 msgid "The template to use for rendering."
 msgstr "Het sjabloon dat gebruikt moet worden voor het renderen."
 
-#: .\application\globlocks\blocks\template.py:42
+#: .\tester\globlocks\blocks\bases\template.py:50
 msgid "Default"
 msgstr "Standaard"
 
-#: .\application\globlocks\blocks\template.py:80
+#: .\tester\globlocks\blocks\bases\template.py:88
 msgid "Invalid template choice (KeyError)."
 msgstr "Ongeldige sjabloon keuze (KeyError)."
 
-#: .\application\globlocks\fields\colorfield.py:6
+#: .\tester\globlocks\blocks\bases\visibility.py:63
+#: .\tester\globlocks\blocks\bases\visibility.py:71
+#: .\tester\globlocks\blocks\bases\visibility.py:218
+msgid "Show"
+msgstr ""
+
+#: .\tester\globlocks\blocks\bases\visibility.py:64
+msgid "Whether to show the content."
+msgstr ""
+
+#: .\tester\globlocks\blocks\bases\visibility.py:72
+#: .\tester\globlocks\blocks\bases\visibility.py:219
+msgid "Hide"
+msgstr ""
+
+#: .\tester\globlocks\blocks\bases\visibility.py:101
+msgid "Visible From"
+msgstr ""
+
+#: .\tester\globlocks\blocks\bases\visibility.py:102
+msgid "The date from which to show the content."
+msgstr ""
+
+#: .\tester\globlocks\blocks\bases\visibility.py:116
+msgid "Visible To"
+msgstr ""
+
+#: .\tester\globlocks\blocks\bases\visibility.py:117
+msgid "The date until which to show the content."
+msgstr ""
+
+#: .\tester\globlocks\blocks\bases\visibility.py:154
+#: .\tester\globlocks\blocks\components\heading.py:38
+#: .\tester\globlocks\blocks\components\image.py:30
+#, fuzzy
+#| msgid "Configure"
+msgid "Configuration"
+msgstr "Configureren"
+
+#: .\tester\globlocks\blocks\bases\visibility.py:316
+msgid "This content is hidden."
+msgstr ""
+
+#: .\tester\globlocks\blocks\block_fields\orderable_block.py:69
+#, python-format
+msgid "Invalid value: %(value)s"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\heading.py:33
+#: .\tester\globlocks\blocks\richtext.py:43
+msgid "Toolbar"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\heading.py:34
+msgid "Format your heading and subheading."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\heading.py:41
+msgid "Heading Configuration"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\heading.py:49
+msgid "The heading of the block."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\heading.py:56
+msgid "The subheading of the block."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\heading.py:61
+#: .\tester\globlocks\blocks\components\image_text.py:32
+#: .\tester\globlocks\blocks\components\link.py:212
+#: .\tester\globlocks\blocks\components\text.py:38
+#: .\tester\globlocks\blocks\components\text.py:40
+#: .\tester\globlocks\blocks\richtext.py:84
+#: .\tester\globlocks\blocks\richtext.py:89
+#: .\tester\globlocks\blocks\richtext.py:152
+#: .\tester\globlocks\blocks\richtext.py:159
+msgid "Text"
+msgstr "Tekst"
+
+#: .\tester\globlocks\blocks\components\heading.py:63
+#: .\tester\globlocks\blocks\richtext.py:71
+#: .\tester\globlocks\blocks\richtext.py:90
+msgid "Heading"
+msgstr "Kop"
+
+#: .\tester\globlocks\blocks\components\heading.py:64
+#, fuzzy, python-brace-format
+#| msgid "Heading Settings"
+msgid "Heading: {heading}"
+msgstr "Kop Instellingen"
+
+#: .\tester\globlocks\blocks\components\image.py:24
+#, fuzzy
+#| msgid "Align Center"
+msgid "Alignment"
+msgstr "Midden Uitlijnen"
+
+#: .\tester\globlocks\blocks\components\image.py:25
+msgid "The alignment of the image."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image.py:33
+msgid "Image Configuration"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image.py:41
+msgid "Full Width"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image.py:42
+msgid "Small"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image.py:43
+msgid "Medium"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image.py:44
+msgid "Large"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image.py:49
+#: .\tester\globlocks\blocks\components\image_text.py:53
+msgid "The image to display."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image.py:53
+#: .\tester\globlocks\blocks\components\image_text.py:65
+msgid "Images"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image.py:54
+#: .\tester\globlocks\blocks\components\image_text.py:27
+msgid "Image"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image.py:55
+#, python-brace-format
+msgid "Image: {label}"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image_text.py:23
+msgid "The order of the image and text."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image_text.py:39
+#, fuzzy
+#| msgid "Heading Settings"
+msgid "Layout Settings"
+msgstr "Kop Instellingen"
+
+#: .\tester\globlocks\blocks\components\image_text.py:40
+#, fuzzy
+#| msgid "Open Settings"
+msgid "Open Layout Settings"
+msgstr "Open Instellingen"
+
+#: .\tester\globlocks\blocks\components\image_text.py:41
+msgid "Image Text Layout Settings"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image_text.py:58
+msgid "The heading above the text."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image_text.py:63
+msgid "Image and Text"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\image_text.py:64
+#, python-brace-format
+msgid "Image / Text: {heading} {image}"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:100
+#: .\tester\globlocks\blocks\components\link.py:105
+msgid "Page"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:109
+#: .\tester\globlocks\blocks\components\link.py:114
+msgid "Document"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:118
+#: .\tester\globlocks\blocks\components\link.py:123
+msgid "External Link"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:125
+msgid "https://example.com"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:131
+msgid "Email Link"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:136
+msgid "Email"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:138
+msgid "john@example.com"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:144
+#: .\tester\globlocks\blocks\components\link.py:149
+msgid "Tel"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:151
+msgid "123-456-7890"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:157
+msgid "Enter a valid phone number."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:215
+msgid "A short description of the link (optional)"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:247
+msgid "Link Type"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:285
+#, python-brace-format
+msgid "Link: {text}"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:286
+msgid "Link"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\link.py:301
+msgid "This field is required."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\menus\flat.py:41
+msgid "An image to display with the menu item."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\menus\flat.py:53
+msgid "Where do you want to link to?"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\menus\flat.py:61
+msgid "Menu Item"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\menus\flat.py:62
+#, python-brace-format
+msgid "Menu Item: {label}"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\menus\flat.py:82
+msgid "Vertical"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\menus\flat.py:83
+msgid "Horizontal"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\menus\flat.py:88
+msgid "The title of the menu."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\menus\flat.py:93
+msgid "The subtitle of the menu."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\menus\flat.py:100
+msgid "The items in the menu."
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\menus\flat.py:105
+msgid "Menus"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\menus\flat.py:106
+msgid "Flat Menu"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\menus\flat.py:107
+#, python-brace-format
+msgid "Flat Menu: {title}"
+msgstr ""
+
+#: .\tester\globlocks\blocks\components\text.py:41
+#, python-brace-format
+msgid "Text: {text}"
+msgstr ""
+
+#: .\tester\globlocks\blocks\richtext.py:22
+msgid "Class Name"
+msgstr "Klasse Naam"
+
+#: .\tester\globlocks\blocks\richtext.py:72
+msgid "Heading Settings"
+msgstr "Kop Instellingen"
+
+#: .\tester\globlocks\blocks\richtext.py:100
+msgid "Background Color"
+msgstr "Achtergrondkleur"
+
+#: .\tester\globlocks\blocks\richtext.py:105
+msgid "Text Color"
+msgstr "Tekstkleur"
+
+#: .\tester\globlocks\blocks\richtext.py:160
+#: .\tester\globlocks\blocks\richtext.py:194
+msgid "Rich Text"
+msgstr "Rijke Tekst"
+
+#: .\tester\globlocks\blocks\richtext.py:183
+msgid "Text Blocks"
+msgstr "Tekst Blokken"
+
+#: .\tester\globlocks\choices.py:27 .\tester\globlocks\choices.py:33
+msgid "Left"
+msgstr "Links"
+
+#: .\tester\globlocks\choices.py:28 .\tester\globlocks\choices.py:34
+msgid "Center"
+msgstr "Midden"
+
+#: .\tester\globlocks\choices.py:29 .\tester\globlocks\choices.py:35
+msgid "Right"
+msgstr "Rechts"
+
+#: .\tester\globlocks\fields\colorfield.py:6
 msgid "Color Input Field"
 msgstr "Kleur- Invoerveld"
 
-#: .\application\globlocks\wagtail_hooks\rt_extensions.py:17
+#: .\tester\globlocks\settings.py:17
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+msgstr ""
+
+#: .\tester\globlocks\settings.py:26
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua."
+msgstr ""
+
+#: .\tester\globlocks\settings.py:36
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
+"cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat "
+"non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+msgstr ""
+
+#: .\tester\globlocks\wagtail_hooks\alignment.py:22
+#: .\tester\globlocks\wagtail_hooks\rt_extensions.py:17
 msgid "Align Left"
 msgstr "Links Uitlijnen"
 
-#: .\application\globlocks\wagtail_hooks\rt_extensions.py:24
+#: .\tester\globlocks\wagtail_hooks\alignment.py:23
+#: .\tester\globlocks\wagtail_hooks\rt_extensions.py:24
 msgid "Align Center"
 msgstr "Midden Uitlijnen"
 
-#: .\application\globlocks\wagtail_hooks\rt_extensions.py:31
+#: .\tester\globlocks\wagtail_hooks\alignment.py:24
+#: .\tester\globlocks\wagtail_hooks\rt_extensions.py:31
 msgid "Align Right"
 msgstr "Rechts Uitlijnen"
+
+#~ msgid "H2"
+#~ msgstr "H2"
+
+#~ msgid "H3"
+#~ msgstr "H3"
+
+#~ msgid "H4"
+#~ msgstr "H4"
+
+#~ msgid "H5"
+#~ msgstr "H5"
+
+#~ msgid "H6"
+#~ msgstr "H6"
+
+#~ msgid "Align"
+#~ msgstr "Uitlijnen"
+
+#~ msgid "The text to be displayed in the heading."
+#~ msgstr "De tekst die getoond moet worden in de kop."

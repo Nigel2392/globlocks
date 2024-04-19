@@ -4,57 +4,12 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
 
 from typing import Any, Union
-from .toolbar_field import ToolbarFormField
-from .tools import Tool, DEFAULT_TOOLS, get_tool
-from .element import ElementType
-from globlocks.settings import LOREM_IPSUM_SHORT
-
-
-class ToolbarValue:
-    def __init__(self, tag_name: str, value: dict[str, Any], tools: list[Tool]):
-        self.tag_name = tag_name
-        self.value = value
-        self.tools = tools
-
-    def get_value(self):
-        return self.value
-
-    def create_element(self) -> ElementType:
-        return ElementType(self, self.tag_name, self.value)
-    
-    def _generate_element(self, element: ElementType = None, **kwargs) -> ElementType:
-        if element is None:
-            element = self.create_element()
-
-        for tool in self.tools:
-            if tool.tool_type in self.value and tool.should_format(self.value[tool.tool_type]):
-                element = tool.format(element, self.value[tool.tool_type])
-
-        for key, value in kwargs.items():
-            if value is not None:
-                element.attrs.add(key, value)
-
-        return element
-    
-    def render_text(self, text: str, **kwargs):
-        """
-
-        """
-        element = self.create_element()
-        return self.render_element(element, text, **kwargs)
-    
-    def render_element(self, element: ElementType, text: str, **kwargs):
-        """
-            Renders the element with the given value and text.
-        """
-        element = self._generate_element(element, **kwargs)
-        return element.render_text(text)
-
-    def __str__(self):
-        """
-            Renders the value with a default lorem ipsum text.
-        """
-        return self.render_text(LOREM_IPSUM_SHORT)
+from .tools import Tool, get_tool, DEFAULT_TOOLS
+from .toolbar_field import (
+    ToolbarFormField,
+    ToolbarValue,
+)
+import json
     
 
 class ToolbarBlock(blocks.FieldBlock):
@@ -130,24 +85,25 @@ class ToolbarBlock(blocks.FieldBlock):
         super().__init__(**kwargs)
 
     def value_for_form(self, value: ToolbarValue):
-        if isinstance(value, ToolbarValue):
-            return super().value_for_form(value.value)
+        if value is None:
+            return None
         
-        return super().value_for_form(value)
+        if isinstance(value, str):
+            return value
+        
+        return self.get_prep_value(value)
 
     def value_from_form(self, value) -> ToolbarValue:
-        value = super().value_from_form(value)
-        return ToolbarValue(self.meta.tag_name, value, self.tools_list)
-
-    def to_python(self, value):
         if isinstance(value, ToolbarValue):
             return value
-        return ToolbarValue(self.meta.tag_name, value, self.tools_list)
+
+        return self.to_python(value)
+
+    def to_python(self, value):
+        return self.field.to_python(value)
 
     def get_prep_value(self, value):
-        if isinstance(value, ToolbarValue):
-            return super().get_prep_value(value.value)
-        return super().get_prep_value(value)
+        return self.field.prepare_value(value)
 
     @cached_property
     def tools_list(self):
@@ -162,6 +118,7 @@ class ToolbarBlock(blocks.FieldBlock):
         return ToolbarFormField(
             targets=self.targets,
             tools=self.tools_list,
+            tag_name=self.meta.tag_name,
             **self.field_options,
         )
 

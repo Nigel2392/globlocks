@@ -16,6 +16,11 @@
     
 }
 
+.globlocks-edit-icon {
+    margin-right: 0.25em;
+    display: inline-block;
+}
+
 
 .globlocks-styles {
     color: var(--globlocks-text-color);
@@ -273,7 +278,6 @@
 }
 .globlocks-menu-horizontal .globlocks-menu__items {
     display: flex;
-    gap: 1em;
 }
 .globlocks-menu-vertical {
 
@@ -291,8 +295,8 @@
 }
 .globlocks-menu-item__link__image img {
     width: 100%;
-    height: auto;
-    max-width: 20rem;
+    height: 10rem;
+    object-fit: cover;
 }
 .globlocks-menu-item__link__title {
     text-decoration: none;

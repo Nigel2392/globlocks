@@ -4,8 +4,13 @@
 
 {% block classname %}globlocks-listblock{% if classname %} {{ classname }}{% endif %}{% endblock %}
 {% block content %}
-    {% for block in blocks %}
-        {% include_block block with block_id=block.id %}
-    {% endfor %}
+    {% if blocks and blocks.bound_blocks %}
+        {% for block in blocks.bound_blocks %}
+            {% include_block block.value with block_id=block.id %}
+        {% endfor %}
+    {% else %}
+        {% for block in blocks %}
+            {% include_block block %}
+        {% endfor %}
+    {% endif %}
 {% endblock %}
-

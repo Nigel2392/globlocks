@@ -41,6 +41,10 @@ class FlatMenuItem(blocks.StructBlock):
         help_text=_("An image to display with the menu item."),
         classname=make_classname(
             SHOW(1, "custom_template"),
+
+            # Which parent element do we want to search for our handler?
+            # This is useful for traveling up the DOM tree to find the
+            # parent element that contains the handler.
             parent_queryselector("class", "globlocks-showable-block")
         )
     )

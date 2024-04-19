@@ -48,11 +48,13 @@ class Heading(ToggleableBlock):
         required=True,
         help_text=_("The heading of the block."),
         form_classname="title",
+        max_length=100,
     )
 
     subheading = blocks.CharBlock(
         required=False,
         help_text=_("The subheading of the block."),
+        max_length=100,
     )
 
     class Meta:

@@ -380,7 +380,7 @@ div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.gooda
     max-width: 1320px;
   }
 }
-.row {
+#wagtail .row {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
   display: flex;
@@ -388,9 +388,9 @@ div[data-contentpath="blocks"] div[data-streamfield-stream-container]:has(.gooda
   margin-top: calc(-1 * var(--bs-gutter-y));
   margin-bottom: calc(var(--bs-gutter-y));
 }
-.row > * {
+#wagtail .row > * {
   flex-shrink: 0;
-  width: 100%;
+  /* width: 100%; */
   max-width: 100%;
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);

@@ -23,7 +23,7 @@ class AutoJSONEncoder(json.JSONEncoder):
                 try:
                     return super().default(obj)
                 except Exception as e:
-                    raise Exception(f"Could not serialize {obj} to JSON") from e
+                    raise Exception(f"Could not serialize {obj} ({type(obj)}) to JSON") from e
                 
 
 def get_hooks(hook_name: str):

@@ -210,6 +210,7 @@ class Link(blocks.StructBlock):
     text = CharBlockWithAttrs(
         required=False,
         label=_("Text"),
+        max_length=255,
         attrs={
             "placeholder": _("A short description of the link (optional)"),
             "autocomplete": "off",

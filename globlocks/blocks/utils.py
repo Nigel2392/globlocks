@@ -1,4 +1,5 @@
 from wagtail import blocks
+from django import forms
 
 
 class AttrMixin:
@@ -9,7 +10,13 @@ class AttrMixin:
 
 
 class CharBlockWithAttrs(AttrMixin, blocks.CharBlock):
-    pass
+
+    def clean(self, value):
+        value = super().clean(value)
+        value = value.strip()
+        if len(value) > self.field.max_length:
+            raise forms.ValidationError({self.name: f"Ensure this value has at most {self.field.max_length} characters (it has {len(value)})"})
+        return value
 
 class URLBlockWithAttrs(AttrMixin, blocks.URLBlock):
     pass
