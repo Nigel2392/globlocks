@@ -28,58 +28,6 @@ def global_admin_js():
         "globlocks-text-alignment-i18n",
     )
 
-
-
-
-class AlignmentBlock(Block):
-    """
-        Block for persisting data-alignment attribute.
-        The data attribute is omitted by default.
-    """
-    def __init__(self, typ, depth=0, key=None, alignment=None):
-        super().__init__(typ, depth, key)
-        self.data = {"alignment": alignment or "left"}
-
-    def as_dict(self):
-        return super().as_dict() | {
-            "data": self.data,
-        }
-
-
-_BLOCK_TYPES = (
-    ("unstyled", "p", BlockElementHandler),
-    ("header-one", "h1", BlockElementHandler),
-    ("header-two", "h2", BlockElementHandler),
-    ("header-three", "h3", BlockElementHandler),
-    ("header-four", "h4", BlockElementHandler),
-    ("header-five", "h5", BlockElementHandler),
-    ("header-six", "h6", BlockElementHandler),
-    ("blockquote", "blockquote", BlockElementHandler),
-    ("code-block", "pre", BlockElementHandler),
-    # ("unordered-list-item", "li", ListItemElementHandler),
-    # ("ordered-list-item", "li", ListItemElementHandler),
-)
-
-class BlockAlignmentHandler(BlockElementHandler):
-    def create_block(self, name, attrs, state, contentstate):
-        return AlignmentBlock(
-            self.block_type, depth=state.list_depth, key=attrs.get(BLOCK_KEY_NAME),
-            alignment=attrs.get("data-alignment", "left"),
-        )
-
-class AlignmentListItemElementHandler(ListItemElementHandler):
-    def __init__(self, block_type):
-        super().__init__()
-
-    def create_block(self, name, attrs, state, contentstate):
-        assert state.list_item_type is not None, (
-            "%s element found outside of an enclosing list element" % name
-        )
-        return AlignmentBlock(
-            state.list_item_type, depth=state.list_depth, key=attrs.get(BLOCK_KEY_NAME),
-            alignment=attrs.get("data-alignment", "left"),
-        )
-
 def text_alignment_elem(tag_name):
     """
         A utility function for creating elements with the
@@ -113,7 +61,10 @@ def text_alignment_elem(tag_name):
 def _new_alignment_handler(tag_name, block_type, base_class = BlockElementHandler):
 
     handler_class = AlignmentHandler(base_class=base_class)
-    handler = handler_class(block_type)
+    if issubclass(base_class, ListItemElementHandler):
+        handler = handler_class()
+    else:
+        handler = handler_class(block_type)
     
     return {
         f"{tag_name}[data-alignment='left']":   handler,
@@ -121,13 +72,64 @@ def _new_alignment_handler(tag_name, block_type, base_class = BlockElementHandle
         f"{tag_name}[data-alignment='right']":  handler,
     }
 
-def AlignmentHandler(base_class = BlockAlignmentHandler):
+
+
+class AlignmentBlock(Block):
+    """
+        Block for persisting data-alignment attribute.
+        The data attribute is omitted by default.
+    """
+    def __init__(self, typ, depth=0, key=None, alignment=None):
+        super().__init__(typ, depth, key)
+        self.data = {"alignment": alignment or "left"}
+
+    def as_dict(self):
+        return super().as_dict() | {
+            "data": self.data,
+        }
+
+
+def AlignmentHandler(base_class = BlockElementHandler):
     class AlignHandler(base_class):
         """
         Draft.js block handler for alignment blocks.
         """
 
+        mutability = "MUTABLE"
+
+        def create_block(self, name, attrs, state, contentstate):
+            if issubclass(base_class, ListItemElementHandler):
+                assert state.list_item_type is not None, (
+                    "%s element found outside of an enclosing list element" % name
+                )
+
+                init_kwarg = state.list_item_type
+            else:
+                init_kwarg = self.block_type
+                
+            return AlignmentBlock(
+                init_kwarg, depth=state.list_depth, key=attrs.get(BLOCK_KEY_NAME),
+                alignment=attrs.get("data-alignment", "left"),
+            )
     return AlignHandler
+
+
+
+_BLOCK_TYPES = (
+    ("unstyled", "p", BlockElementHandler),
+    ("header-one", "h1", BlockElementHandler),
+    ("header-two", "h2", BlockElementHandler),
+    ("header-three", "h3", BlockElementHandler),
+    ("header-four", "h4", BlockElementHandler),
+    ("header-five", "h5", BlockElementHandler),
+    ("header-six", "h6", BlockElementHandler),
+    ("blockquote", "blockquote", BlockElementHandler),
+    ("code-block", "pre", BlockElementHandler),
+    # ("unordered-list-item", "li", ListItemElementHandler),
+    # ("ordered-list-item", "li", ListItemElementHandler),
+)
+
+
 
 @hooks.register("globlocks.register_block_types")
 def register_list_types(block_map, from_db_format):
@@ -143,7 +145,7 @@ def register_list_types(block_map, from_db_format):
     # block_type is not used for ListItemElementHandler.
     from_db_format.update(
         _new_alignment_handler(
-            "li", None, AlignmentListItemElementHandler,
+            "li", None, ListItemElementHandler,
         )
     )
 
