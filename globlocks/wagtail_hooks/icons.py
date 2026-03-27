@@ -17,9 +17,4 @@ def register_icons(icons):
         "globlocks/icons/toolbar/text-underline.svg",
         "globlocks/icons/toolbar/text-palette.svg",
         "globlocks/icons/toolbar/text-palette-fill.svg",
-
-        # Justify Widget / Toolbar
-        "globlocks/icons/text-align/text-left.svg",
-        "globlocks/icons/text-align/text-center.svg",
-        "globlocks/icons/text-align/text-right.svg",
     ]
