@@ -48,6 +48,8 @@ Quick start
 
 *Normally* - headings would not be able to get aligned. **This is a problem.**
 
+This means you will have to add "wagtail_text_alignment" to the django settings app list.
+
 Luckily, we have the solution! *And you can use it too!*
 
 **To add the alignment features to your richtext**
